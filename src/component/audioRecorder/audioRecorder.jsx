@@ -19,7 +19,6 @@ export class AudioRecorder extends React.Component {
         this.setState({
             mediaRecorder: new MediaRecorder(stream)
         });
-
         this.state.mediaRecorder.onstop = () => {
             const blob = new Blob(this.state.chunks, { 'type' : 'audio/ogg; codecs=opus' });
             console.log(blob)
@@ -35,15 +34,15 @@ export class AudioRecorder extends React.Component {
         }
     }
 
-    startRecording() {
+    startRecording = () => {
         this.state.mediaRecorder.start();
     }
 
-    stopRecording() {
+    stopRecording = () => {
         this.state.mediaRecorder.stop();
     }
 
-    requestPermissions() {
+    requestPermissions = () => {
         const constraints = { audio: true };
         navigator.mediaDevices.getUserMedia(constraints).then(this.configureRecorder,
             (e) => console.error(e));
