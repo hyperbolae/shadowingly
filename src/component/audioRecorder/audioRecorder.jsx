@@ -7,23 +7,28 @@ export class AudioRecorder extends React.Component {
         super(props);
         this.requestPermissions();
         this.state = {
-            recording: false,
-            chunks : []
+            audioSource: null,
+            chunks : [],
+            mediaRecorder: null,
+            recording: false
         }
     }
 
     configureRecorder = (stream) => {
-        window.mediaRecorder = new MediaRecorder(stream);
-        window.mediaRecorder.onstop = () => {
+
+        this.setState({
+            mediaRecorder: new MediaRecorder(stream)
+        });
+
+        this.state.mediaRecorder.onstop = () => {
             const blob = new Blob(this.state.chunks, { 'type' : 'audio/ogg; codecs=opus' });
             console.log(blob)
             this.setState({
-                recording_source: window.URL.createObjectURL(blob),
+                audioSource: window.URL.createObjectURL(blob),
                 chunks: []
             })
         }
-        window.mediaRecorder.ondataavailable = (blobEvent) => {
-
+        this.state.mediaRecorder.ondataavailable = (blobEvent) => {
           this.setState({
               chunks: [...this.state.chunks, blobEvent.data]
           })
@@ -31,11 +36,11 @@ export class AudioRecorder extends React.Component {
     }
 
     startRecording() {
-        window.mediaRecorder.start();
+        this.state.mediaRecorder.start();
     }
 
     stopRecording() {
-        window.mediaRecorder.stop();
+        this.state.mediaRecorder.stop();
     }
 
     requestPermissions() {
@@ -62,7 +67,7 @@ export class AudioRecorder extends React.Component {
                 <button onClick={this.toggleIsRecording} className={this.state.recording? 'recording': ''}>
                     {this.state.recording ? 'Stop' : 'Record'}
                 </button>
-                <audio controls={true} src={this.state.recording_source}/>
+                <audio controls={true} src={this.state.audioSource}/>
             </div>
         );
     }
