@@ -21,7 +21,6 @@ export class AudioRecorder extends React.Component {
         });
         this.state.mediaRecorder.onstop = () => {
             const blob = new Blob(this.state.chunks, { 'type' : 'audio/ogg; codecs=opus' });
-            console.log(blob)
             this.setState({
                 audioSource: window.URL.createObjectURL(blob),
                 chunks: []
