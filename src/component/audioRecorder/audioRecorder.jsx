@@ -14,8 +14,19 @@ export class AudioRecorder extends React.Component {
         }
     }
 
-    configureRecorder = (stream) => {
+    play = () => {
+        const context = new AudioContext();
+        const audio = new Audio(this.state.audioSource);
+        const track = context.createMediaElementSource(audio);
+        const pannerOptions = { pan: 0 };
+        const panner = new StereoPannerNode(context, pannerOptions);
+        track.connect(panner).connect(context.destination);
+        let startTime = document.getElementById("some-id").value;
+        audio.currentTime = startTime;
+        audio.play();
+    }
 
+    configureRecorder = (stream) => {
         this.setState({
             mediaRecorder: new MediaRecorder(stream)
         });
@@ -65,7 +76,14 @@ export class AudioRecorder extends React.Component {
                 <button onClick={this.toggleIsRecording} className={this.state.recording? 'recording': ''}>
                     {this.state.recording ? 'Stop' : 'Record'}
                 </button>
-                <audio controls={true} src={this.state.audioSource}/>
+                {this.state.audioSource ?
+                    <div>
+                        <button onClick={this.play}>Play</button>
+                        <input id='some-id' type="range" min="1" max="10" />
+                    </div>
+                    :
+                    ""
+                }
             </div>
         );
     }
