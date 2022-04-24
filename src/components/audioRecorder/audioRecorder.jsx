@@ -1,5 +1,5 @@
-import './audioRecorder.css';
 import React from "react";
+import './audioRecorder.css';
 
 export class AudioRecorder extends React.Component {
 
@@ -66,7 +66,8 @@ export class AudioRecorder extends React.Component {
     render() {
         return (
             <div className={'audio-recorder'}>
-                <button onClick={this.toggleIsRecording} className={this.state.recording? 'recording': ''}>
+                <button onClick={this.toggleIsRecording}
+                    className={this.state.recording? 'recording': ''}>
                     {this.state.recording ? 'Stop' : 'Record'}
                 </button>
                 {this.state.audioBuffer ?
