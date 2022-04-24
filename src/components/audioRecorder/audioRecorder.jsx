@@ -10,7 +10,6 @@ export class AudioRecorder extends React.Component {
             audioBuffer: null,
             context,
             chunks : [],
-            mediaRecorder: null,
             recording: false
         }
         this.requestPermissions()
