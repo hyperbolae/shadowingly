@@ -1,50 +1,63 @@
 import React, { useState } from 'react';
 
 export function FileUploader() {
-  const [selectedFile, setSelectedFile] = useState();
+  const [leftFile, setLeftFile] = useState();
+  const [rightFile, setRightFile] = useState();
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+  const leftChangeHandler = (event) => {
+    setLeftFile(event.target.files[0]);
   };
 
-  const handlePlay = () => {
+  const rightChangeHandler = (event) => {
+    setRightFile(event.target.files[0]);
+  };
+
+  const readUploadedFile = (inputFile) => {
     const reader = new FileReader();
 
-    reader.readAsArrayBuffer(selectedFile);
+    return new Promise((resolve, reject) => {
+      reader.onerror = () => {
+        reader.abort();
+        reject(new DOMException("Problem parsing input file."));
+      };
 
-    reader.onload = async function () {
-      const context = new AudioContext();
-      const blob = new Blob([reader.result])
+      reader.onload = () => {
+        resolve(reader.result);
+      };
 
-      const audioUrl = window.URL.createObjectURL(blob);
-      const audio = new Audio(audioUrl);
-      const track = context.createMediaElementSource(audio);
+      reader.readAsArrayBuffer(inputFile);
+    });
+  };
 
-      const pannerOptions = { pan: 1 };
-      const panner = new StereoPannerNode(context, pannerOptions);
+  const handlePlay = async () => {
+    const context = new AudioContext();
 
-      track.connect(panner).connect(context.destination);
+    const merger = context.createChannelMerger(2);
 
-      audio.play();
-    }
+    const leftArrayBuffer = await readUploadedFile(leftFile);
+    const leftAudioBuffer = await context.decodeAudioData(leftArrayBuffer);
+    const leftSource = context.createBufferSource();
+    leftSource.buffer = leftAudioBuffer;
+    leftSource.connect(merger, 0, 0);
+
+    const rightArrayBuffer = await readUploadedFile(rightFile);
+    const rightAudioBuffer = await context.decodeAudioData(rightArrayBuffer);
+    const rightSource = context.createBufferSource();
+    rightSource.buffer = rightAudioBuffer;
+    rightSource.connect(merger, 0, 1);
+
+    merger.connect(context.destination);
+
+    leftSource.start();
+    rightSource.start();
   };
 
   return(
     <div>
-      <input type="file" name="file" onChange={changeHandler}/>
-      {selectedFile ? (
-        <div>
-          <p>Filename: {selectedFile.name}</p>
-          <p>Filetype: {selectedFile.type}</p>
-          <p>Size in bytes: {selectedFile.size}</p>
-          <p>
-            lastModifiedDate:{' '}
-            {selectedFile.lastModifiedDate.toLocaleDateString()}
-          </p>
-        </div>
-      ) : (
-        <p>Select a file to show details</p>
-      )}
+      <label htmlFor="left">Left channel</label>
+      <input type="file" id="left" name="file" onChange={leftChangeHandler}/>
+      <label htmlFor="right">Right channel</label>
+      <input type="file" id="right" name="file" onChange={rightChangeHandler}/>
       <div>
         <button onClick={handlePlay}>Play</button>
       </div>
