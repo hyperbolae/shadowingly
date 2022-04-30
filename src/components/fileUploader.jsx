@@ -18,7 +18,7 @@ export function FileUploader() {
     return new Promise((resolve, reject) => {
       reader.onerror = () => {
         reader.abort();
-        reject(new DOMException("Problem parsing input file."));
+        reject(new DOMException('Problem parsing input file.'));
       };
 
       reader.onload = () => {
@@ -29,30 +29,35 @@ export function FileUploader() {
     });
   };
 
+  const Channel = {
+    Left: 0,
+    Right: 1
+  }
+
+  const createSource = async (context, file, merger, channel) => {
+    const arrayBuffer = await readUploadedFile(file);
+    const audioBuffer = await context.decodeAudioData(arrayBuffer);
+    const source = context.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(merger, 0, channel);
+
+    return source;
+  }
+
   const handlePlay = async () => {
     const context = new AudioContext();
-
     const merger = context.createChannelMerger(2);
 
-    const leftArrayBuffer = await readUploadedFile(leftFile);
-    const leftAudioBuffer = await context.decodeAudioData(leftArrayBuffer);
-    const leftSource = context.createBufferSource();
-    leftSource.buffer = leftAudioBuffer;
-    leftSource.connect(merger, 0, 0);
-
-    const rightArrayBuffer = await readUploadedFile(rightFile);
-    const rightAudioBuffer = await context.decodeAudioData(rightArrayBuffer);
-    const rightSource = context.createBufferSource();
-    rightSource.buffer = rightAudioBuffer;
-    rightSource.connect(merger, 0, 1);
+    const leftSource = leftFile && await createSource(context, leftFile, merger, Channel.Left);
+    const rightSource = rightFile && await createSource(context, rightFile, merger, Channel.Right);
 
     merger.connect(context.destination);
 
-    leftSource.start();
-    rightSource.start();
+    if (leftSource) leftSource.start();
+    if (rightSource) rightSource.start();
   };
 
-  return(
+  return (
     <div>
       <label htmlFor="left">Left channel</label>
       <input type="file" id="left" name="file" onChange={leftChangeHandler}/>
