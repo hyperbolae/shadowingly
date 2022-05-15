@@ -1,0 +1,1 @@
+type AudioSource = AudioBufferSourceNode | undefined;
