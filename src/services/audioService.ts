@@ -49,6 +49,7 @@ export class AudioService implements IAudioService, ISourceSetter {
   getPlaybackSource = () => this.playbackSource;
   setPlaybackSource = async (file: File) => this.playbackSource = await this.createAudioSource(file);
   clearPlaybackSource = () => {
+    this.stop();
     disconnect(this.playbackSource);
     this.playbackSource = undefined;
   }
@@ -56,6 +57,7 @@ export class AudioService implements IAudioService, ISourceSetter {
   getRecordedSource = () => this.recordedSource;
   setRecordedSource = async (file: File) => this.recordedSource = await this.createAudioSource(file);
   clearRecordedSource = () => {
+    this.stop();
     disconnect(this.recordedSource);
     this.recordedSource = undefined;
   }
