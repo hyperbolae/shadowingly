@@ -1,4 +1,4 @@
-import {Channel} from "../utils/constants";
+import {Channel} from "../domain/constants";
 import {ReadFile} from "../utils/fileReader";
 import {ISourceSetter} from "./audioServiceWriter";
 
@@ -48,11 +48,17 @@ export class AudioService implements IAudioService, ISourceSetter {
 
   getPlaybackSource = () => this.playbackSource;
   setPlaybackSource = async (file: File) => this.playbackSource = await this.createAudioSource(file);
-  clearPlaybackSource = () => this.playbackSource = undefined; // todo: check if not disconnecting causes memory leaks
+  clearPlaybackSource = () => {
+    disconnect(this.playbackSource);
+    this.playbackSource = undefined;
+  }
 
   getRecordedSource = () => this.recordedSource;
   setRecordedSource = async (file: File) => this.recordedSource = await this.createAudioSource(file);
-  clearRecordedSource = () => this.recordedSource = undefined; // todo: check if not disconnecting causes memory leaks
+  clearRecordedSource = () => {
+    disconnect(this.recordedSource);
+    this.recordedSource = undefined;
+  }
 
   getPlaybackChannel = () => this.playbackChannel;
   setPlaybackChannel = (channel: Channel) => this.playbackChannel = channel;
