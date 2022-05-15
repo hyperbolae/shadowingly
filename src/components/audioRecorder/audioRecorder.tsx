@@ -45,7 +45,7 @@ export class AudioRecorder extends React.Component<AudioRecorderProps, AudioReco
     toggleIsRecording = () => {
         if (!this.mediaRecorder) {
             console.warn("Attempted to record before MediaRecorder was constructed. " +
-                "An AudioRecorder may not have been constructed correctly")
+                "An AudioRecorder may not have initialized correctly.")
             return;
         }
         if (this.state.recording) {
