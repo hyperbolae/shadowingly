@@ -106,7 +106,7 @@ export class AudioService implements IAudioService, ISourceSetter {
           this.connectDualChannels();
       }
     } else {
-      this.connectChannels()
+      this.connectDualChannels();
     }
   }
 }
