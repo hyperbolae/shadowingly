@@ -36,12 +36,13 @@ export class AudioService implements IAudioService, ISourceSetter {
     this.recordedSource = undefined;
   }
 
-  play() {
+  play = () => {
+    this.connectDualChannels();
     if (this.playbackSource) this.playbackSource.start();
     if (this.recordedSource) this.recordedSource.start();
   }
 
-  stop() {
+  stop = () => {
     if (this.playbackSource) this.playbackSource.stop();
     if (this.recordedSource) this.recordedSource.stop();
   }
@@ -66,8 +67,10 @@ export class AudioService implements IAudioService, ISourceSetter {
   setPlaybackChannel = (channel: Channel) => this.playbackChannel = channel;
 
   async createAudioSource(file: File) {
+    if (this.context.state === 'suspended') {
+      await this.context.resume();
+    }
     const arrayBuffer = await ReadFile(file);
-
     if (arrayBuffer) {
       const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
       const source = this.context.createBufferSource();

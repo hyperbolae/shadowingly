@@ -1,12 +1,11 @@
 import React from "react";
-import './audioRecorder.css';
+import './AudioRecorder.css';
 
 interface AudioRecorderProps {
     setRecorded(file: File): Promise<void>
 }
 
 interface AudioRecorderState {
-    chunks: Blob[],
     recording: boolean
 }
 
@@ -17,17 +16,13 @@ export class AudioRecorder extends React.Component<AudioRecorderProps, AudioReco
     constructor(props: AudioRecorderProps) {
         super(props);
         this.state = {
-            chunks: [],
             recording: false
         }
         this.requestPermissions()
             .then(stream => {
                 this.mediaRecorder = new MediaRecorder(stream);
-                this.mediaRecorder.onstop = () => this.constructBufferFromChunks();
                 this.mediaRecorder.ondataavailable = blobEvent => {
-                    this.setState({
-                        chunks: [...this.state.chunks, blobEvent.data]
-                    })
+                    this.constructBufferFromBlob(blobEvent.data);
                 }
             });
     }
@@ -37,8 +32,8 @@ export class AudioRecorder extends React.Component<AudioRecorderProps, AudioReco
         return navigator.mediaDevices.getUserMedia(constraints);
     }
 
-    constructBufferFromChunks = async () => {
-        const blob = new Blob(this.state.chunks, {'type': 'audio/ogg; codecs=opus'});
+    constructBufferFromBlob = async (chunks: Blob) => {
+        const blob = new Blob([chunks], {'type': 'audio/ogg; codecs=opus'});
         await this.props.setRecorded(new File([blob], 'recorded'));
     }
 
