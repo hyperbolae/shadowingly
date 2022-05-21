@@ -22,7 +22,7 @@ export class AudioRecorder extends React.Component<AudioRecorderProps, AudioReco
             .then(stream => {
                 this.mediaRecorder = new MediaRecorder(stream);
                 this.mediaRecorder.ondataavailable = blobEvent => {
-                    this.constructBufferFromBlob(blobEvent.data);
+                    return this.constructBufferFromBlob(blobEvent.data);
                 }
             });
     }
@@ -32,8 +32,8 @@ export class AudioRecorder extends React.Component<AudioRecorderProps, AudioReco
         return navigator.mediaDevices.getUserMedia(constraints);
     }
 
-    constructBufferFromBlob = async (chunks: Blob) => {
-        const blob = new Blob([chunks], {'type': 'audio/ogg; codecs=opus'});
+    constructBufferFromBlob = async (rawAudio: Blob) => {
+        const blob = new Blob([rawAudio], {'type': 'audio/ogg; codecs=opus'});
         await this.props.setRecorded(new File([blob], 'recorded'));
     }
 
