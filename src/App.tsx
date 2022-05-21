@@ -4,7 +4,8 @@ import logo from './logo.svg';
 import './App.css';
 import {AudioService} from "./services/audioService";
 import {getAudioServiceWriter} from "./services/audioServiceWriter";
-import {AudioRecorder} from "./components/audioRecorder/audioRecorder";
+import {AudioRecorder} from "./components/audioRecorder/AudioRecorder";
+import {AudioPlayer} from "./components/audioPlayer/AudioPlayer";
 
 function App() {
   const [audioService] = useState(new AudioService());
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <FileSelector audioSelected={selected} setPlayback={setPlaybackSource}></FileSelector>
+      {selected ? <AudioPlayer audioService={audioService}></AudioPlayer> : ""}
       <AudioRecorder setRecorded={setRecordingSource}></AudioRecorder>
     </div>
   );
