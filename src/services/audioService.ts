@@ -25,30 +25,39 @@ export class AudioService implements IAudioService, ISourceSetter {
   merger: ChannelMergerNode;
   playbackSource: AudioSource;
   recordedSource: AudioSource;
+  playbackBuffer: Buffer;
+  recordedBuffer: Buffer;
   playbackChannel = Channel.Dual;
 
   constructor(context: AudioContext = new AudioContext()) {
     this.context = context;
     this.merger = context.createChannelMerger(2);
-    this.merger.connect(this.context.destination);
-
-    this.playbackSource = undefined;
-    this.recordedSource = undefined;
   }
 
   play = () => {
-    this.connectDualChannels();
+    this.stop();
+    this.playbackSource = this.createSource(this.playbackBuffer);
+    this.recordedSource = this.createSource(this.recordedBuffer);
+    this.connectChannels();
+
     if (this.playbackSource) this.playbackSource.start();
     if (this.recordedSource) this.recordedSource.start();
   }
 
   stop = () => {
-    if (this.playbackSource) this.playbackSource.stop();
-    if (this.recordedSource) this.recordedSource.stop();
+    try {
+      if (this.playbackSource) this.playbackSource.stop();
+      if (this.recordedSource) this.recordedSource.stop();
+    } catch (e) {
+      // cannot call stop on an AudioSource that's not started
+    }
   }
 
   getPlaybackSource = () => this.playbackSource;
-  setPlaybackSource = async (file: File) => this.playbackSource = await this.createAudioSource(file);
+  setPlaybackSource = async (file: File) => {
+    this.playbackBuffer = await this.createAudioBuffer(file);
+    this.playbackSource = this.createSource(this.playbackBuffer);
+  }
   clearPlaybackSource = () => {
     this.stop();
     disconnect(this.playbackSource);
@@ -56,7 +65,10 @@ export class AudioService implements IAudioService, ISourceSetter {
   }
 
   getRecordedSource = () => this.recordedSource;
-  setRecordedSource = async (file: File) => this.recordedSource = await this.createAudioSource(file);
+  setRecordedSource = async (file: File) => {
+    this.recordedBuffer = await this.createAudioBuffer(file);
+    this.recordedSource =  this.createSource(this.recordedBuffer);
+  }
   clearRecordedSource = () => {
     this.stop();
     disconnect(this.recordedSource);
@@ -66,16 +78,20 @@ export class AudioService implements IAudioService, ISourceSetter {
   getPlaybackChannel = () => this.playbackChannel;
   setPlaybackChannel = (channel: Channel) => this.playbackChannel = channel;
 
-  async createAudioSource(file: File) {
+  async createAudioBuffer(file: File) {
     if (this.context.state === 'suspended') {
       await this.context.resume();
     }
     const arrayBuffer = await ReadFile(file);
     if (arrayBuffer) {
-      const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
-      const source = this.context.createBufferSource();
-      source.buffer = audioBuffer;
+      return await this.context.decodeAudioData(arrayBuffer);
+    }
+  }
 
+  createSource(buffer: Buffer) {
+    if (buffer) {
+      const source = this.context.createBufferSource();
+      source.buffer = buffer;
       return source;
     }
   }
@@ -95,11 +111,13 @@ export class AudioService implements IAudioService, ISourceSetter {
         case Channel.Left: {
           this.playbackSource.connect(this.merger, outputNumber, Channel.Left);
           this.recordedSource.connect(this.merger, outputNumber, Channel.Right);
+          this.merger.connect(this.context.destination);
           break;
         }
         case Channel.Right: {
           this.playbackSource.connect(this.merger, outputNumber, Channel.Right);
           this.recordedSource.connect(this.merger, outputNumber, Channel.Left);
+          this.merger.connect(this.context.destination);
           break;
         }
         case Channel.Dual:

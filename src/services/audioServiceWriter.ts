@@ -8,11 +8,11 @@ type audioServiceWriter = {
 }
 
 export interface ISourceSetter {
-  setPlaybackSource(file: File): Promise<AudioSource>;
+  setPlaybackSource(file: File): Promise<void>;
 
   clearPlaybackSource(): void;
 
-  setRecordedSource(file: File): Promise<AudioSource>;
+  setRecordedSource(file: File): Promise<void>;
 
   clearRecordedSource(): void;
 }
