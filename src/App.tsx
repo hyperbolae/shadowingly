@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FileSelector} from "./components/fileSelector/FileSelector";
-import logo from './logo.svg';
+import {MainFileSelector} from "./components/mainFileSelector/MainFileSelector";
 import './App.css';
 import {AudioService} from "./services/audioService";
 import {getAudioServiceWriter} from "./services/audioServiceWriter";
@@ -19,13 +19,20 @@ function App() {
     clearRecordingSource
   } = getAudioServiceWriter(audioService, setSelected, setRecorded);
 
-  return (
-    <div className="App">
-      <FileSelector audioSelected={selected} setPlayback={setPlaybackSource}></FileSelector>
-      {selected ? <AudioPlayer audioService={audioService}></AudioPlayer> : ""}
-      <AudioRecorder setRecorded={setRecordingSource}></AudioRecorder>
-    </div>
-  );
+  if (selected) {
+    return (
+      <div className="App">
+        <FileSelector audioSelected={selected} setPlayback={setPlaybackSource}></FileSelector>
+        {selected ? <AudioPlayer audioService={audioService}></AudioPlayer> : ""}
+        <AudioRecorder setRecorded={setRecordingSource}></AudioRecorder>
+      </div>
+    );
+
+  } else {
+    return (
+      <MainFileSelector setPlayback={setPlaybackSource}></MainFileSelector>
+    )
+  }
 }
 
 export default App;
