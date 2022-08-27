@@ -10,6 +10,10 @@ html, body, #root {
   --background-color: #fafafa;
   --color-text: #222;
   --color-primary: #ef3340;
+  --color-black: #727171;
+  --color-grey: #848888;
+  --color-light-grey: #c7c7c7;
+  --button-color: var(--color-grey);
 }
 
 body {
