@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {FileSelector} from "./components/fileSelector/FileSelector";
 import {MainFileSelector} from "./components/mainFileSelector/MainFileSelector";
-import './App.css';
+import {PlaybackContainer} from "./components/PlaybackContainer";
 import {AudioService} from "./services/audioService";
-import {getAudioServiceWriter} from "./services/audioServiceWriter";
+import {getAudioServiceHooks} from "./services/audioServiceHooks";
 import {AudioRecorder} from "./components/audioRecorder/AudioRecorder";
-import {AudioPlayer} from "./components/audioPlayer/AudioPlayer";
+import './App.css';
 
 function App() {
   const [audioService] = useState(new AudioService());
@@ -15,16 +15,16 @@ function App() {
   const {
     setPlaybackSource,
     clearPlaybackSource,
-    setRecordingSource,
-    clearRecordingSource
-  } = getAudioServiceWriter(audioService, setSelected, setRecorded);
+    setRecordedSource,
+    clearRecordedSource
+  } = getAudioServiceHooks(audioService, setSelected, setRecorded);
 
   if (selected) {
     return (
       <div className="App">
         <FileSelector audioSelected={selected} setPlayback={setPlaybackSource}></FileSelector>
-        {selected ? <AudioPlayer audioService={audioService}></AudioPlayer> : ""}
-        <AudioRecorder setRecorded={setRecordingSource}></AudioRecorder>
+        <AudioRecorder setRecorded={setRecordedSource}></AudioRecorder>
+        <PlaybackContainer audioService={audioService}></PlaybackContainer>
       </div>
     );
 
