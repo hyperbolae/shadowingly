@@ -1,0 +1,37 @@
+.border {
+  --bar-size: 0.2rem;
+}
+
+.border {
+  width: 40%;
+  height: var(--bar-size);
+  border: 2px solid var(--color-grey);
+  border-radius: 2rem;
+  padding: 0.9rem 1.1rem;
+}
+
+.line {
+  height: var(--bar-size);
+  background-color: var(--color-light-grey);
+  border-radius: var(--bar-size);
+}
+
+.highlight {
+  height: var(--bar-size);
+  background-color: var(--color-grey);
+  border-radius: var(--bar-size);
+  justify-content: right;
+}
+
+.point {
+  --point-size: 0.6rem;
+  width: var(--point-size);
+  height: var(--point-size);
+  border-radius: var(--point-size);
+  background: var(--color-black);
+  position: relative;
+  top: calc(-0.5 * (var(--point-size) - var(--bar-size)));
+  right: calc(-0.5 * var(--point-size));
+  float: right;
+}
+

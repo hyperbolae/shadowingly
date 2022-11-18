@@ -1,13 +1,13 @@
 type setter = (value: boolean) => void;
 
-type audioServiceWriter = {
+type audioServiceHooks = {
   setPlaybackSource: (file: File) => Promise<void>
   clearPlaybackSource: () => void
-  setRecordingSource: (file: File) => Promise<void>
-  clearRecordingSource: () => void
+  setRecordedSource: (file: File) => Promise<void>
+  clearRecordedSource: () => void
 }
 
-export interface ISourceSetter {
+export interface IAudioServiceSources {
   setPlaybackSource(file: File): Promise<void>;
 
   clearPlaybackSource(): void;
@@ -17,7 +17,7 @@ export interface ISourceSetter {
   clearRecordedSource(): void;
 }
 
-export function getAudioServiceWriter(audioService: ISourceSetter, setSelected: setter, setRecorded: setter): audioServiceWriter {
+export function getAudioServiceHooks(audioService: IAudioServiceSources, setSelected: setter, setRecorded: setter): audioServiceHooks {
   const setPlaybackSource = async (file: File) => {
     await audioService.setPlaybackSource(file);
     setSelected(true);
@@ -41,7 +41,7 @@ export function getAudioServiceWriter(audioService: ISourceSetter, setSelected: 
   return {
     setPlaybackSource: setPlaybackSource,
     clearPlaybackSource: clearPlaybackSource,
-    setRecordingSource: setRecordedSource,
-    clearRecordingSource: clearRecordedSource
+    setRecordedSource: setRecordedSource,
+    clearRecordedSource: clearRecordedSource
   }
 }
