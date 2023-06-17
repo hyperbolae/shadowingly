@@ -1,45 +1,47 @@
 import React from 'react'
-import "../styles/Button.css"
-import {AudioStatus} from "../../domain/AudioStatus";
-import {PlayIcon, StopIcon} from "../icons/icons";
+import { useDispatch, useSelector } from 'react-redux'
+import { play, stop } from '../../app/audioStatus'
+import { RootState } from '../../app/store'
+import { AudioStatus } from '../../constants/audioStatus'
+import { PlayIcon, StopIcon } from '../icons/icons'
+import '../styles/Button.css'
 
-interface IconButtonProps {
-  play(): void;
-  pause(): void;
-  status: AudioStatus;
-}
 
-function getIcon (status: AudioStatus) {
-  switch(status) {
+function getIcon(status: AudioStatus) {
+  switch (status) {
     case AudioStatus.Playing:
-      return StopIcon;
+    case AudioStatus.Recording:
+      return StopIcon
     case AudioStatus.Paused:
-      return PlayIcon;
+      return PlayIcon
     case AudioStatus.Stopped:
-      return PlayIcon;
+      return PlayIcon
   }
 }
 
-export function PlayButton(props: IconButtonProps) {
-  const Icon = getIcon(props.status);
+export function PlayButton() {
+  const status = useSelector((state: RootState) => state.audio.status)
+  const dispatch = useDispatch()
+
+  const Icon = getIcon(status)
 
   function handleClick() {
-    switch(props.status) {
+    switch (status) {
       case AudioStatus.Playing:
-        props.pause();
-        break;
+        dispatch(stop())
+        break
       case AudioStatus.Paused:
-        props.play();
-        break;
+        dispatch(play())
+        break
       case AudioStatus.Stopped:
-        props.play();
-        break;
+        dispatch(play())
+        break
     }
   }
 
   return (
     <button className="round-button" onClick={handleClick}>
-      <Icon></Icon>
+      <Icon/>
     </button>
   )
 }

@@ -1,15 +1,14 @@
-import React, {ChangeEvent} from 'react'
-import './MainFileSelector.css';
+import React, { ChangeEvent } from 'react'
+import { useDispatch } from 'react-redux'
+import './MainFileSelector.css'
+import { setPlaybackFile } from '../../app/playbackFileSlice'
 
-interface FileSelectorProps {
-  setPlayback(file: File): Promise<void>
-}
-
-export function MainFileSelector(props: FileSelectorProps) {
+export function MainFileSelector() {
+  const dispatch = useDispatch()
 
   async function handleUploadChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
-      await props.setPlayback(event.target.files[0]);
+      await dispatch(setPlaybackFile(event.target.files[0]))
     }
   }
 
