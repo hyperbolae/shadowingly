@@ -41,7 +41,7 @@ export function PlayButton() {
 
   return (
     <button className="round-button" onClick={handleClick}>
-      <Icon/>
+      <Icon />
     </button>
   )
 }

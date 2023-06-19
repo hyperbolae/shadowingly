@@ -1,0 +1,30 @@
+#channel-container {
+  all: unset;
+}
+
+.channel-input {
+  display: none;
+}
+
+.channel-button {
+  display: inline-block;
+  height: 24px;
+  padding: 10px 30px;
+  transition: var(--color-transition);
+  background: var(--color-light-grey);
+}
+
+.channel-input:checked ~ .channel-button {
+  background: var(--color-grey);
+}
+
+.channel-button:hover {
+  background: var(--color-grey);
+}
+
+.channel-button-container {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: var(--shadow)
+}
+
