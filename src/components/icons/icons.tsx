@@ -3,7 +3,6 @@ import React from 'react'
 // Fluent UI System Icons from Microsoft
 // https://github.com/microsoft/fluentui-system-icons
 
-
 interface IconProps {
   fill?: string
 }

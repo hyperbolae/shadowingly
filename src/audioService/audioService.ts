@@ -64,7 +64,6 @@ export class AudioService {
     this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
     this.recordedSource = this.createSource(this.recordedBuffer)
     this.connectChannels()
-    console.log(this.listeningType)
 
     this.startTime = this.context.currentTime
     if (this.playbackSource) this.playbackSource.start()

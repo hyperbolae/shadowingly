@@ -6,10 +6,10 @@ import './ListeningTypeSelector.css'
 
 const buttons = [
   { type: Single.RecordingOnly, Icon: Comment, title: 'Recording only' },
+  { type: Single.PlaybackOnly, Icon: CommentOff, title: 'No recording' },
   { type: Mixed.PlaybackRight, Icon: CommentLeft, title: 'Recording on the left' },
   { type: Mixed.Both, Icon: CommentMultiple, title: 'Mixed' },
-  { type: Mixed.RecordingRight, Icon: CommentRight, title: 'Recording on the right' },
-  { type: Single.PlaybackOnly, Icon: CommentOff, title: 'No recording' }
+  { type: Mixed.RecordingRight, Icon: CommentRight, title: 'Recording on the right' }
 ]
 
 export function ListeningTypeSelector() {
