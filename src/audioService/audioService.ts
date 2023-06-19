@@ -35,8 +35,55 @@ export class AudioService {
           return this.constructBufferFromBlob(blobEvent.data)
         }
       }).catch(_ => {
-      console.log('TODO fix')
+      console.log('TODO fix or give error message?')
     })
+  }
+
+  record(onEndedListener?: (ev: Event) => void) {
+    if (!this.mediaRecorder) {
+      console.warn('Attempted to record before MediaRecorder was constructed. ' +
+        'An AudioRecorder may not have initialized correctly.')
+      return
+    }
+
+    this.stop()
+    this.clearRecordedSource()
+    this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
+    this.connectChannels()
+
+    this.startTime = this.context.currentTime
+    if (this.playbackSource) this.playbackSource.start()
+
+    this.mediaRecorder.start()
+  }
+
+  start(onEndedListener?: (ev: Event) => void) {
+    this.stop()
+    this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
+    this.recordedSource = this.createSource(this.recordedBuffer)
+    this.connectChannels()
+
+    this.startTime = this.context.currentTime
+    if (this.playbackSource) this.playbackSource.start()
+    if (this.recordedSource) this.recordedSource.start()
+  }
+
+  stop() {
+    try {
+      if (this.mediaRecorder) this.mediaRecorder.stop()
+      if (this.playbackSource) this.playbackSource.stop()
+      if (this.recordedSource) this.recordedSource.stop()
+    } catch (e) {
+      // cannot call stop on an AudioSource that's not started
+    }
+  }
+
+  async setPlaybackFile(file: File) {
+    this.playbackBuffer = await this.createAudioBuffer(file)
+  }
+
+  private async setRecordedFile(file: File) {
+    this.recordedBuffer = await this.createAudioBuffer(file)
   }
 
   private requestPermissions() {
@@ -49,57 +96,13 @@ export class AudioService {
     await this.setRecordedFile(new File([blob], 'recorded'))
   }
 
-  private start(onEndedListener?: (ev: Event) => void) {
-    this.stop()
-    this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
-    this.recordedSource = this.createSource(this.recordedBuffer)
-    this.connectChannels()
-
-    this.startTime = this.context.currentTime
-    if (this.playbackSource) this.playbackSource.start()
-    if (this.recordedSource) this.recordedSource.start()
-  }
-
-  record() {
-    if (!this.mediaRecorder) {
-      console.warn('Attempted to record before MediaRecorder was constructed. ' +
-        'An AudioRecorder may not have initialized correctly.')
-      return
-    }
-
-    this.start()
-    this.mediaRecorder.start()
-  }
-
-  play = this.start
-
-  stop() {
-    try {
-      if (this.playbackSource) this.playbackSource.stop()
-      if (this.recordedSource) this.recordedSource.stop()
-    } catch (e) {
-      // cannot call stop on an AudioSource that's not started
-    }
-  }
-
-  async setPlaybackFile(file: File) {
-    this.playbackBuffer = await this.createAudioBuffer(file)
-  }
-
-  async setRecordedFile(file: File) {
-    this.recordedBuffer = await this.createAudioBuffer(file)
-  }
-
-  clearRecordedSource = () => {
+  private clearRecordedSource = () => {
     this.stop()
     disconnect(this.recordedSource)
     this.recordedSource = undefined
   }
 
-  getPlaybackChannel = () => this.playbackChannel
-  setPlaybackChannel = (channel: Channel) => this.playbackChannel = channel
-
-  async createAudioBuffer(file: File) {
+  private async createAudioBuffer(file: File) {
     if (this.context.state === 'suspended') {
       await this.context.resume()
     }
@@ -109,7 +112,7 @@ export class AudioService {
     }
   }
 
-  createSource(buffer: Buffer, onEndedListener?: (ev: Event) => void) {
+  private createSource(buffer: Buffer, onEndedListener?: (ev: Event) => void) {
     if (buffer) {
       const source = this.context.createBufferSource()
       source.buffer = buffer
@@ -122,12 +125,12 @@ export class AudioService {
     }
   }
 
-  connectDualChannels() {
+  private connectDualChannels() {
     if (this.playbackSource) this.playbackSource.connect(this.context.destination)
     if (this.recordedSource) this.recordedSource.connect(this.context.destination)
   }
 
-  connectChannels() {
+  private connectChannels() {
     disconnect(this.playbackSource)
     disconnect(this.recordedSource)
     disconnect(this.merger)
