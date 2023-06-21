@@ -18,10 +18,7 @@ export class AudioService {
   private recordedBuffer: Buffer
   private mediaRecorder: MediaRecorder | undefined = undefined
 
-  get currentTime() {
-    return this.context.currentTime - this.startTime
-  }
-
+  getCurrentTime = () => this.context.currentTime - this.startTime
   getPlaybackDuration = () => this.playbackBuffer?.duration
   getRecordingDuration = () => this.playbackBuffer?.duration
 
