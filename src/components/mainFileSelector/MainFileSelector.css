@@ -9,7 +9,7 @@ label.main-selector input[type="file"] {
   justify-content: space-between;
   cursor: pointer;
   background: var(--color-primary);
-  color: var(--background-color);
+  color: var(--color-white);
   display: inline-block;
 }
 
