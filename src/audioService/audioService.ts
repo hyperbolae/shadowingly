@@ -1,4 +1,5 @@
 import { Channel } from '../constants/channel'
+import { ListeningType, Mixed, Single } from '../constants/listeningType'
 import { ReadFile } from '../utils/fileReader'
 
 const disconnect = (source: AudioNode | undefined) => source && source.disconnect()
@@ -6,7 +7,7 @@ const disconnect = (source: AudioNode | undefined) => source && source.disconnec
 const outputNumber = 0
 
 export class AudioService {
-  playbackChannel = Channel.Dual
+  listeningType: ListeningType = Mixed.Both
 
   private startTime = 0
   private context: AudioContext
@@ -49,7 +50,8 @@ export class AudioService {
     this.stop()
     this.clearRecordedSource()
     this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
-    this.connectChannels()
+    this.disconnectChannels()
+    if (this.playbackSource) this.playbackSource.connect(this.context.destination)
 
     this.startTime = this.context.currentTime
     if (this.playbackSource) this.playbackSource.start()
@@ -130,27 +132,41 @@ export class AudioService {
     if (this.recordedSource) this.recordedSource.connect(this.context.destination)
   }
 
-  private connectChannels() {
+  private disconnectChannels() {
     disconnect(this.playbackSource)
     disconnect(this.recordedSource)
     disconnect(this.merger)
+  }
+
+  private connectChannels() {
+    this.disconnectChannels()
 
     if (this.playbackSource && this.recordedSource) {
-      switch (this.playbackChannel) {
-        case Channel.Left: {
+      switch (this.listeningType) {
+        case Mixed.RecordingRight: {
           this.playbackSource.connect(this.merger, outputNumber, Channel.Left)
           this.recordedSource.connect(this.merger, outputNumber, Channel.Right)
           this.merger.connect(this.context.destination)
           break
         }
-        case Channel.Right: {
+        case Mixed.PlaybackRight: {
           this.playbackSource.connect(this.merger, outputNumber, Channel.Right)
           this.recordedSource.connect(this.merger, outputNumber, Channel.Left)
           this.merger.connect(this.context.destination)
           break
         }
-        case Channel.Dual:
+        case Mixed.Both: {
           this.connectDualChannels()
+          break
+        }
+        case Single.PlaybackOnly: {
+          this.playbackSource.connect(this.context.destination)
+          break
+        }
+        case Single.RecordingOnly: {
+          this.recordedSource.connect(this.context.destination)
+          break
+        }
       }
     } else {
       this.connectDualChannels()

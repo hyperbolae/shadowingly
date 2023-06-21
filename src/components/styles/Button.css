@@ -1,8 +1,9 @@
 .round-button {
-  transition: background-color 0.09s, background-color 0.09s;
-  background-color: transparent;
+  box-shadow: var(--shadow);
+  transition: var(--color-transition);
+  background-color: var(--color-light-grey);
   color: var(--color-grey);
-  border: 2px solid var(--color-grey);
+  border: none;
   border-radius: 2rem;
   padding: 25px;
   width: 80px;
@@ -12,5 +13,4 @@
 .round-button:hover {
   background: var(--color-grey);
   color: transparent;
-  --button-color: var(--background-color);
 }

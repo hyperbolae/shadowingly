@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import './App.css'
 import { RootState } from './app/store'
+import { ListeningTypeSelector } from './components/channelSelector/ListeningTypeSelector'
 import { MainFileSelector } from './components/mainFileSelector/MainFileSelector'
 import { PlayButton } from './components/playButton/PlayButton'
 import { RecordButton } from './components/recordButton/RecordButton'
@@ -12,8 +13,9 @@ function App() {
   if (selected) {
     return (
       <div>
-        <PlayButton/>
         <RecordButton/>
+        <PlayButton/>
+        <ListeningTypeSelector/>
       </div>
     )
 
