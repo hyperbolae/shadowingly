@@ -1,5 +1,6 @@
 #channel-container {
   all: unset;
+  display: block;
 }
 
 .channel-input {
@@ -23,6 +24,7 @@
 }
 
 .channel-button-container {
+  display: inline-block;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: var(--shadow)
