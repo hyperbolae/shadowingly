@@ -1,9 +1,8 @@
 import type { TypedStartListening } from '@reduxjs/toolkit'
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { AudioServiceSingleton } from '../audioService/audioService'
-import { playAudio, stopAudio } from './audioStatus'
+import { pauseAudio, playAudio, stopAudio, startRecording, stopRecording} from './audioSlice'
 import { setPlaybackFile } from './playbackFileSlice'
-import { startRecording, stopRecording } from './recordingSlice'
 
 import type { AppDispatch, RootState } from './store'
 
@@ -20,6 +19,13 @@ startAppListening({
   effect: (_, listenerApi) => {
     const stopOnEnd = () => listenerApi.dispatch(stopAudio())
     audioService.start(stopOnEnd)
+  }
+})
+
+startAppListening({
+  actionCreator: pauseAudio,
+  effect: (_, listenerApi) => {
+    audioService.pause()
   }
 })
 
