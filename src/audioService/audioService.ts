@@ -57,6 +57,10 @@ export class AudioService {
   }
 
   start(onEndedListener?: (ev: Event) => void) {
+    if (this.context.state === 'suspended') {
+      this.context.resume()
+      return
+    }
     this.stop()
     this.playbackSource = this.createSource(this.playbackBuffer, onEndedListener)
     this.recordedSource = this.createSource(this.recordedBuffer)
@@ -73,8 +77,13 @@ export class AudioService {
       if (this.playbackSource) this.playbackSource.stop()
       if (this.recordedSource) this.recordedSource.stop()
     } catch (e) {
-      // cannot call stop on an AudioSource that's not started
+      console.warn("Attempted to call stop() on an AudioSource that ",
+                   "has not been started. See nested exception:\n", e)
     }
+  }
+
+  pause() {
+    this.context.suspend()
   }
 
   async setPlaybackFile(file: File) {

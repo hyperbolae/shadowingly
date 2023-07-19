@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { playAudio, stopAudio } from '../../app/audioStatus'
+import { playAudio, pauseAudio } from '../../app/audioSlice'
 import { RootState } from '../../app/store'
 import { AudioStatus } from '../../constants/audioStatus'
-import { PlayIcon, StopIcon } from '../icons/icons'
+import { PlayIcon, PauseIcon } from '../icons/icons'
 import '../styles/Button.css'
 
 
@@ -11,7 +11,7 @@ function getIcon(status: AudioStatus) {
   switch (status) {
     case AudioStatus.Playing:
     case AudioStatus.Recording:
-      return StopIcon
+      return PauseIcon
     case AudioStatus.Paused:
       return PlayIcon
     case AudioStatus.Stopped:
@@ -28,7 +28,7 @@ export function PlayButton() {
   function handleClick() {
     switch (status) {
       case AudioStatus.Playing:
-        dispatch(stopAudio())
+        dispatch(pauseAudio())
         break
       case AudioStatus.Paused:
         dispatch(playAudio())
