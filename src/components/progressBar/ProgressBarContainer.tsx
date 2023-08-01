@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../app/store'
+import { useAppSelector } from '../../app/hooks'
 import { useAudioService } from '../../audioService/hooks'
 import { AudioStatus } from '../../constants/audioStatus'
 import { ProgressBar } from './ProgressBar'
 
 export function ProgressBarContainer() {
   const [currentTime, setCurrentTime] = useState(0)
-  const audioStatus = useSelector((state: RootState) => state.audio.status)
+  const audioStatus = useAppSelector(state => state.audio.status)
   const audioService = useAudioService()
 
   const requestRef = useRef<number>()

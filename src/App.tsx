@@ -1,7 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import './App.css'
-import { RootState } from './app/store'
+import { useAppSelector } from './app/hooks'
 import { ListeningTypeSelector } from './components/channelSelector/ListeningTypeSelector'
 import { MainFileSelector } from './components/mainFileSelector/MainFileSelector'
 import { PlayButton } from './components/playButton/PlayButton'
@@ -9,7 +8,7 @@ import { ProgressBarContainer } from './components/progressBar/ProgressBarContai
 import { RecordButton } from './components/recordButton/RecordButton'
 
 function App() {
-  const selected = useSelector((state: RootState) => state.playbackFile.set)
+  const selected = useAppSelector(state => state.playbackFile.set)
 
   if (selected) {
     return (

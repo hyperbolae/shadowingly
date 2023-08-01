@@ -1,16 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { AudioStatus } from '../constants/audioStatus'
+import { store } from './store'
 
 export interface AudioState {
   status: AudioStatus,
   isRecording: boolean,
-  recordedSet: boolean
+  recordedSet: boolean,
+  delay: number
 }
 
 const initialState: AudioState = {
   status: AudioStatus.Stopped,
   isRecording: false,
-  recordedSet: false
+  recordedSet: false,
+  delay: 0
 }
 
 export const audioSlice = createSlice({
@@ -26,6 +29,9 @@ export const audioSlice = createSlice({
     stopAudio: (state) => {
       state.status = AudioStatus.Stopped
     },
+    delayAudio: (state) => {
+      state.status = AudioStatus.Delayed
+    },
     startRecording: (state) => {
       state.status = AudioStatus.Playing
       state.isRecording = true
@@ -38,10 +44,27 @@ export const audioSlice = createSlice({
     },
     clearRecorded: (state) => {
       state.recordedSet = false
+    },
+    setDelay: (state, action: PayloadAction<number>) => {
+      if (action.payload > 0 && action.payload < 5) {
+        state.delay = action.payload
+      }
     }
   }
 })
 
-export const { pauseAudio, playAudio, stopAudio , startRecording, stopRecording, clearRecorded} = audioSlice.actions
+export const {pauseAudio, playAudio, stopAudio, startRecording, stopRecording, delayAudio} = audioSlice.actions
+
+export const playAudioWithDelay = () => (dispatch: Dispatch<AnyAction>, getState: typeof store.getState) => {
+  const state = getState().audio
+
+  if (state.delay > 0 && state.status === AudioStatus.Stopped) {
+    dispatch(delayAudio())
+
+    setTimeout(() => dispatch(playAudio()), state.delay * 1000)
+  } else {
+    dispatch(playAudio())
+  }
+}
 
 export const audioReducer = audioSlice.reducer
