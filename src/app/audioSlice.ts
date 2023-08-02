@@ -6,14 +6,14 @@ export interface AudioState {
   status: AudioStatus,
   isRecording: boolean,
   recordedSet: boolean,
-  delay: number
+  delay_seconds: number
 }
 
 const initialState: AudioState = {
   status: AudioStatus.Stopped,
   isRecording: false,
   recordedSet: false,
-  delay: 0
+  delay_seconds: 0
 }
 
 export const audioSlice = createSlice({
@@ -47,7 +47,7 @@ export const audioSlice = createSlice({
     },
     setDelay: (state, action: PayloadAction<number>) => {
       if (action.payload > 0 && action.payload < 5) {
-        state.delay = action.payload
+        state.delay_seconds = action.payload
       }
     }
   }
@@ -58,10 +58,10 @@ export const {pauseAudio, playAudio, stopAudio, startRecording, stopRecording, d
 export const playAudioWithDelay = () => (dispatch: Dispatch<AnyAction>, getState: typeof store.getState) => {
   const state = getState().audio
 
-  if (state.delay > 0 && state.status === AudioStatus.Stopped) {
+  if (state.delay_seconds > 0 && state.status === AudioStatus.Stopped) {
     dispatch(delayAudio())
 
-    setTimeout(() => dispatch(playAudio()), state.delay * 1000)
+    setTimeout(() => dispatch(playAudio()), state.delay_seconds * 1000)
   } else {
     dispatch(playAudio())
   }
