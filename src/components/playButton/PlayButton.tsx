@@ -1,13 +1,12 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { playAudio, pauseAudio } from '../../app/audioSlice'
-import { RootState } from '../../app/store'
+import { pauseAudio, playAudio, playAudioWithDelay } from '../../app/audioSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { AudioStatus } from '../../constants/audioStatus'
-import { PlayIcon, PauseIcon } from '../icons/icons'
+import { Icon, PauseIcon, PlayIcon } from '../icons/icons'
 import '../styles/Button.css'
 
 
-function getIcon(status: AudioStatus) {
+function getIcon(status: AudioStatus): Icon {
   switch (status) {
     case AudioStatus.Playing:
     case AudioStatus.Recording:
@@ -16,12 +15,14 @@ function getIcon(status: AudioStatus) {
       return PlayIcon
     case AudioStatus.Stopped:
       return PlayIcon
+    case AudioStatus.Delayed:
+      return PlayIcon
   }
 }
 
 export function PlayButton() {
-  const status = useSelector((state: RootState) => state.audio.status)
-  const dispatch = useDispatch()
+  const status = useAppSelector(state => state.audio.status)
+  const dispatch = useAppDispatch()
 
   const Icon = getIcon(status)
 
@@ -34,14 +35,14 @@ export function PlayButton() {
         dispatch(playAudio())
         break
       case AudioStatus.Stopped:
-        dispatch(playAudio())
+        dispatch(playAudioWithDelay())
         break
     }
   }
 
   return (
     <button className="round-button" onClick={handleClick}>
-      <Icon />
+      <Icon/>
     </button>
   )
 }
