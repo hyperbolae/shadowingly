@@ -12,7 +12,7 @@ export function MainPanel() {
   const PanelContent = () => {
     return (
       <div className={styles.layout}>
-        <div className="playback">
+        <div className={styles.playback}>
           <ProgressBarContainer/>
           <div className={styles.buttons}>
             <RecordButton/>
