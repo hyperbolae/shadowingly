@@ -19,7 +19,7 @@ export function MainPanel() {
             <PlayButton/>
           </div>
         </div>
-        <div id="option">
+        <div className={styles.options}>
           <ListeningTypeSelector/>
         </div>
       </div>
@@ -27,7 +27,7 @@ export function MainPanel() {
   }
 
   return (
-    <main className={styles.panel}>
+    <main className={styles.mainPanel}>
       {selected ? <PanelContent/> : <MainFileSelector/>}
     </main>
   )

@@ -3,7 +3,7 @@
     flex-direction: row;
 }
 
-.panel {
+.mainPanel {
     width: 1000px;
     height: 700px;
     background: var(--color-white);
@@ -20,4 +20,7 @@
 .buttons {
     display: flex;
     gap: 20px;
+}
+
+.options {
 }
