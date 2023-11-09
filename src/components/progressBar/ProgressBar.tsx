@@ -12,9 +12,7 @@ export function ProgressBar({ endPercentage = 1, currentPercentage }: ProgressBa
   return (
     <div className="border">
       <div className="line" style={{ width: +endPercentage * 100 + '%' }}>
-        <div className="highlight" style={{ width: +width + '%' }}>
-          <div className="point"/>
-        </div>
+        <div className="highlight" style={{ width: +width + '%' }}/>
       </div>
     </div>
   )

@@ -1,33 +1,22 @@
 .border {
   --bar-size: 30px;
+  --radius: 5px;
 }
 
 .border {
-  width: calc(100% - var(--bar-size));
+  width: 100%;
   height: var(--bar-size);
 }
 
 .line {
   height: var(--bar-size);
   background-color: var(--color-light-grey);
-  border-radius: var(--bar-size);
-  padding-right: var(--bar-size);
+  border-radius: var(--radius);
 }
 
 .highlight {
   height: var(--bar-size);
   background-color: var(--color-grey);
-  border-radius: var(--bar-size);
-  padding-right: var(--bar-size);
+  border-radius: var(--radius);
   justify-content: right;
-}
-
-.point {
-  width: var(--bar-size);
-  height: var(--bar-size);
-  border-radius: var(--bar-size);
-  background: var(--color-black);
-  position: relative;
-  left: var(--bar-size);
-  float: right;
 }

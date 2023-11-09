@@ -1,16 +1,8 @@
 import React, { useState } from 'react'
 import { useAudioService } from '../../audioService/hooks'
 import { ListeningType, Mixed, Single } from '../../constants/listeningType'
-import { Comment, CommentLeft, CommentMultiple, CommentOff, CommentRight, Icon } from '../icons/icons'
-import './ListeningTypeSelector.css'
-
-const buttons = [
-  { type: Single.RecordingOnly, Icon: Comment, title: 'Recording only' },
-  { type: Single.PlaybackOnly, Icon: CommentOff, title: 'No recording' },
-  { type: Mixed.PlaybackRight, Icon: CommentLeft, title: 'Recording on the left' },
-  { type: Mixed.Both, Icon: CommentMultiple, title: 'Mixed' },
-  { type: Mixed.RecordingRight, Icon: CommentRight, title: 'Recording on the right' }
-]
+import { mergeStyles } from '../../utils/styling'
+import styles from './ListeningTypeSelector.module.css'
 
 export function ListeningTypeSelector() {
   const audioService = useAudioService()
@@ -21,28 +13,32 @@ export function ListeningTypeSelector() {
     setCurrentChannel(type)
   }
 
-  function generateButton({ type, Icon, title }: { type: ListeningType, Icon: Icon, title: string }) {
+  function ListeningTypeButton({type, title}: { type: ListeningType, title: string }) {
+    const labelClass = mergeStyles(styles.channelButton, currentChannel === type && styles.selected)
+
     return (
-      <span key={type}>
+      <div key={type}>
         <input
           type="radio"
           id={type}
           checked={currentChannel === type}
           onChange={() => handleChange(type)}
           title={title}
-          className="channel-input"/>
-        <label htmlFor={type} title={title} className="channel-button">
-          <Icon/>
+          className={styles.channelInput}/>
+        <label htmlFor={type} title={title} className={labelClass}>
+          {title}
         </label>
-      </span>
+      </div>
     )
   }
 
-  return (// todo: add tooltip that explains channels
-    <fieldset id="channel-container">
-      <legend>Recording output channel</legend>
-      <div className="channel-button-container">
-        {buttons.map(generateButton)}
+  return (
+    <fieldset className={styles.channelContainer}>
+      <legend className={styles.legend}>Listening Type</legend>
+      <div className={styles.buttons}>
+        <ListeningTypeButton type={Mixed.Both} title="Both"/>
+        <ListeningTypeButton type={Single.RecordingOnly} title="Recording Only"/>
+        <ListeningTypeButton type={Single.PlaybackOnly} title="Playback Only"/>
       </div>
     </fieldset>
   )
