@@ -1,46 +1,24 @@
-# Getting Started with Create React App
+# Shadowingly
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Shadowingly is a language-learning app focused on 
+[language shadowing](https://en.wikipedia.org/wiki/Speech_shadowing).
 
-## Available Scripts
+## Language Shadowing
 
-In the project directory, you can run:
+Language shadowing is a technique whereby the learner mimicks a piece
+of reference audio. Through repetition and self-comparison the learner
+can closely align themselves to the spoken nuance of a new language. 
+This is particularly important for languages where tone and intonation 
+carry significant meaning such as Japanese or Mandarin. However, even
+in languages where this is less important, shadowing can assist in
+sounding more "native" in that language.
 
-### `npm start`
+## Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Shadowingly is a React app. You can build and run the app with the
+following commands respectively:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run build
+npm run start
+```
