@@ -1,5 +1,5 @@
 .channelContainer {
-    border: 2px solid var(--color-grey);
+    border: 1px solid var(--color-grey);
     border-radius: 10px;
 }
 
@@ -49,7 +49,7 @@
     width: auto;
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid var(--color-grey);
+    border: 1px solid var(--color-grey);
     border-radius: 10px;
     padding: 5px 20px;
 }

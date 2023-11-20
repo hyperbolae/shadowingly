@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../app/hooks'
 import { ListeningTypeSelector } from '../channelSelector/ListeningTypeSelector'
-import { MainFileSelector } from '../mainFileSelector/MainFileSelector'
 import { PlayButton } from '../playButton/PlayButton'
 import { ProgressBarContainer } from '../progressBar/ProgressBarContainer'
 import { RecordButton } from '../recordButton/RecordButton'
+import { SearchPanel } from '../searchPanel/SearchPanel'
 import styles from './MainPanel.module.css'
 
 export function MainPanel() {
@@ -28,7 +28,7 @@ export function MainPanel() {
 
   return (
     <main className={styles.mainPanel}>
-      {selected ? <PanelContent/> : <MainFileSelector/>}
+      {selected ? <PanelContent/> : <SearchPanel/>}
     </main>
   )
 }
