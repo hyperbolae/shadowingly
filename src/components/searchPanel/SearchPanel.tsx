@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPlaybackFile } from '../../app/playbackFileSlice'
 import { Sentence, TatoebaResponse } from '../../types/tatoeba'
@@ -69,14 +69,17 @@ export function SearchPanel() {
   const [results, setResults] = useState<Sentence[]>([])
   const [loading, setLoading] = useState(false)
 
-
-  async function handleSearch() {
+  const fetchTatoebaData = useCallback(async () => {
     setLoading(true)
     const response = await fetch(searchUrl + getSearchUrl(searchTerm))
     const data: TatoebaResponse = await response.json()
     setResults(data.results)
     setLoading(false)
-  }
+  }, [searchTerm])
+
+  useEffect(() => {
+    fetchTatoebaData()
+  }, [fetchTatoebaData])
 
   return (
     <div>
@@ -86,7 +89,7 @@ export function SearchPanel() {
         onChange={e => setSearchTerm(e.target.value)}
         placeholder="Search..."
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={fetchTatoebaData}>Search</button>
       {loading ? (
         <p>Loading...</p>
       ) : (
