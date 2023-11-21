@@ -1,8 +1,8 @@
 import type { TypedStartListening } from '@reduxjs/toolkit'
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { AudioServiceSingleton } from '../audioService/audioService'
-import { pauseAudio, playAudio, stopAudio, startRecording, stopRecording} from './audioSlice'
-import { setPlaybackFile } from './playbackFileSlice'
+import { pauseAudio, playAudio, startRecording, stopAudio, stopRecording } from './audioSlice'
+import { _setPlaybackFile } from './playbackFileSlice'
 
 import type { AppDispatch, RootState } from './store'
 
@@ -37,7 +37,7 @@ startAppListening({
 })
 
 startAppListening({
-  actionCreator: setPlaybackFile,
+  actionCreator: _setPlaybackFile,
   effect: async (action) => {
     await audioService.setPlaybackFile(action.payload)
   }

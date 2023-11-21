@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { startRecording, stopRecording } from '../../app/audioSlice'
-import { useAppSelector } from '../../app/hooks'
-import { RecordIcon, RecordStopIcon } from '../icons/icons'
-import '../styles/Button.css'
+import { startRecording, stopRecording } from '../../../app/audioSlice'
+import { useAppSelector } from '../../../app/hooks'
+import { RecordIcon, RecordStopIcon } from '../../shared/icons/icons'
+import '../../styles/Button.css'
 
 
 export function RecordButton() {

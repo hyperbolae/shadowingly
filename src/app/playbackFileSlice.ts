@@ -1,11 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { Views } from '../constants/views'
+import { AppThunk } from './store'
+import { setCurrentView } from './viewSlice'
 
-export interface SourcesState {
+export interface PlaybackFileState {
   set: boolean
 }
 
-const initialState: SourcesState = {
+const initialState: PlaybackFileState = {
   set: false
 }
 
@@ -13,7 +16,7 @@ export const playbackFileSlice = createSlice({
   name: 'playbackFile',
   initialState: initialState,
   reducers: {
-    setPlaybackFile: (state, _: PayloadAction<File>) => {
+    _setPlaybackFile: (state, _: PayloadAction<File>) => {
       state.set = true
     },
     clearPlaybackFile: (state) => {
@@ -23,7 +26,13 @@ export const playbackFileSlice = createSlice({
 })
 
 export const {
-  setPlaybackFile
+  _setPlaybackFile
 } = playbackFileSlice.actions
+
+export const setPlaybackFile = (payload: File): AppThunk => (dispatch) => {
+  dispatch(_setPlaybackFile(payload))
+  dispatch(setCurrentView(Views.Shadowing))
+}
+
 
 export const playbackFileReducer = playbackFileSlice.reducer

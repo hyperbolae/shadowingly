@@ -1,6 +1,6 @@
-import { AnyAction, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AudioStatus } from '../constants/audioStatus'
-import { store } from './store'
+import { AppThunk } from './store'
 
 export interface AudioState {
   status: AudioStatus,
@@ -55,7 +55,7 @@ export const audioSlice = createSlice({
 
 export const {pauseAudio, playAudio, stopAudio, startRecording, stopRecording, delayAudio} = audioSlice.actions
 
-export const playAudioWithDelay = () => (dispatch: Dispatch<AnyAction>, getState: typeof store.getState) => {
+export const playAudioWithDelay = (): AppThunk => (dispatch, getState) => {
   const state = getState().audio
 
   if (state.delay_seconds > 0 && state.status === AudioStatus.Stopped) {
