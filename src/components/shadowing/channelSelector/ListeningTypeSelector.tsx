@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useAudioService } from '../../audioService/hooks'
-import { ListeningType, Mixed, Single } from '../../constants/listeningType'
-import { mergeStyles } from '../../utils/styling'
+import { useAudioService } from '../../../audioService/hooks'
+import { ListeningType, Mixed, Single } from '../../../constants/listeningType'
+import { mergeStyles } from '../../../utils/styling'
 import styles from './ListeningTypeSelector.module.css'
 
 export function ListeningTypeSelector() {

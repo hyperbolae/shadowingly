@@ -1,12 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setPlaybackFile } from '../../app/playbackFileSlice'
-import { Sentence, TatoebaResponse } from '../../types/tatoeba'
+import { searchUrl } from '../../../constants/tatoeba'
+import { Sentence, TatoebaResponse } from '../../../types/tatoeba'
+import { SearchItem } from '../searchItem/SearchItem'
 
-
-const baseUrl = 'https://shadowingly-dmhndccqgwe6asb5.z01.azurefd.net/en'
-const searchUrl = baseUrl + '/api_v0/search?from=jpn&has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no'
-const baseAudioUrl = baseUrl + '/audio/download/'
 
 const defaultMinCount = 10
 
@@ -28,41 +24,6 @@ function getSearchUrl(searchTerm?: string, minCount?: number, maxCount?: number)
   return url.toString()
 }
 
-function getAudioUrl(sentence: Sentence) {
-  if (sentence.audios.length > 0 && sentence.audios[0].id) {
-    return baseAudioUrl + sentence.audios[0].id
-  } else {
-    return '' // todo handle this case
-  }
-}
-
-function SearchItem({sentence}: { sentence: Sentence }) {
-  const dispatch = useDispatch()
-
-  async function handleAudioPlay(sentence: Sentence) {
-    const data = getAudioUrl(sentence)
-    const audio = new Audio(data)
-    await audio.play()
-  }
-
-  async function handleAudioSelected(sentence: Sentence) {
-    const url = getAudioUrl(sentence)
-    const response = await (await fetch(url)).blob()
-
-    const audioFile = new File([response], 'selected-audio.mp3', {type: 'audio/mpeg'})
-
-    dispatch(setPlaybackFile(audioFile))
-  }
-
-  return (
-    <li>
-      {sentence.text}
-      <button onClick={() => handleAudioPlay(sentence)}>Play</button>
-      <button onClick={() => handleAudioSelected(sentence)}>Select</button>
-    </li>
-  )
-}
-
 
 export function SearchPanel() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -79,6 +40,7 @@ export function SearchPanel() {
 
   useEffect(() => {
     fetchTatoebaData()
+    console.log('fetching data')
   }, [fetchTatoebaData])
 
   return (

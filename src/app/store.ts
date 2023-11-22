@@ -1,18 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { audioServiceMiddleware } from './audioServiceMiddleware'
 import { audioReducer } from './audioSlice'
-import { playbackFileReducer, setPlaybackFile } from './playbackFileSlice'
+import { _setPlaybackFile, playbackFileReducer } from './playbackFileSlice'
+import { viewReducer } from './viewSlice'
 
 export const store = configureStore({
   reducer: {
     audio: audioReducer,
     playbackFile: playbackFileReducer,
+    panel: viewReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(
       {
         serializableCheck: {
-          ignoredActions: [setPlaybackFile.type],
+          ignoredActions: [_setPlaybackFile.type],
         },
       }
     ).prepend(audioServiceMiddleware.middleware)
@@ -20,3 +22,10 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AnyAction
+>
