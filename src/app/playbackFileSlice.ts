@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { Views } from '../constants/views'
+import { Views } from '../domain/views'
 import { AppThunk } from './store'
 import { setCurrentView } from './viewSlice'
 

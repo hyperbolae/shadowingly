@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Views } from '../constants/views'
+import { Views } from '../domain/views'
 
 export interface ViewSlice {
   current: Views

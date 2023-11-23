@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAudioService } from '../../../audioService/hooks'
-import { ListeningType, Mixed, Single } from '../../../constants/listeningType'
+import { ListeningType, Mixed, Single } from '../../../domain/listeningType'
 import { mergeStyles } from '../../../utils/styling'
 import styles from './ListeningTypeSelector.module.css'
 
@@ -13,7 +13,7 @@ export function ListeningTypeSelector() {
     setCurrentChannel(type)
   }
 
-  function ListeningTypeButton({type, title}: { type: ListeningType, title: string }) {
+  function ListeningTypeButton({ type, title }: { type: ListeningType, title: string }) {
     const labelClass = mergeStyles(styles.channelButton, currentChannel === type && styles.selected)
 
     return (

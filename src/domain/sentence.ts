@@ -1,6 +1,7 @@
 export interface Sentence {
   id: number
   text: string
+  languageCode: string
   translation?: Translation
   transcription?: Transcription
   audio: Audio
@@ -9,6 +10,7 @@ export interface Sentence {
 interface Transcription {
   text: string
   html: string
+  script: string
 }
 
 interface Translation {

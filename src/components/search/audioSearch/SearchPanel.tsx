@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { searchUrl } from '../../../constants/tatoeba'
-import { Sentence } from '../../../types/sentence'
-import { parseTatoebaSentence, TatoebaResponse } from '../../../types/tatoeba'
+import { DefaultLanguage, Languages } from '../../../domain/languages'
+import { Sentence } from '../../../domain/sentence'
+import { parseTatoebaSentence, searchUrl, TatoebaResponse } from '../../../domain/tatoeba'
 import { SearchItem } from '../searchItem/SearchItem'
 
 
 const defaultMinCount = 10
 
-function getSearchUrl(searchTerm?: string, minCount?: number, maxCount?: number) {
+function getSearchUrl(languageCode: string, searchTerm?: string, minCount?: number, maxCount?: number) {
   const url = new URL(searchUrl)
   const params = url.searchParams
+
+  params.append('from', languageCode)
 
   const minCountParam = minCount && minCount > 0 && minCount < 40 ? minCount : defaultMinCount
   params.append('word_count_min', minCountParam.toString())
@@ -25,16 +27,23 @@ function getSearchUrl(searchTerm?: string, minCount?: number, maxCount?: number)
   return url.toString()
 }
 
+export interface SearchPanelProps {
+  defaultLanguageCode?: string
+}
 
-export function SearchPanel() {
+export function SearchPanel(props: SearchPanelProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [results, setResults] = useState<Sentence[]>([])
   const [loading, setLoading] = useState(false)
+  const [languageCode, setLanguageCode] = useState(props.defaultLanguageCode || DefaultLanguage.code)
 
   const fetchTatoebaData = useCallback(async () => {
     setLoading(true)
-    const response = await fetch(searchUrl + getSearchUrl(searchTerm))
+    const tatoebaCode = Languages.find(lang => lang.code === languageCode)?.tatoebaCode || DefaultLanguage.tatoebaCode
+    const response = await fetch(searchUrl + getSearchUrl(tatoebaCode, searchTerm))
     const data: TatoebaResponse = await response.json()
+
+    console.log(data)
 
     const sentences = data.results
       .filter(sentence => sentence.audios.length > 0)
@@ -42,7 +51,7 @@ export function SearchPanel() {
 
     setResults(sentences)
     setLoading(false)
-  }, [searchTerm])
+  }, [searchTerm, languageCode])
   useEffect(() => {
     fetchTatoebaData()
   }, [fetchTatoebaData])
@@ -53,9 +62,17 @@ export function SearchPanel() {
         type="text"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
+        lang={languageCode}
         placeholder="Search..."
       />
       <button onClick={fetchTatoebaData}>Search</button>
+      <select value={languageCode} onChange={e => setLanguageCode(e.target.value)}>
+        {Languages.map(lang => (
+          <option key={lang.code} value={lang.code}>
+            {lang.name}
+          </option>
+        ))}
+      </select>
       {loading ? (
         <p>Loading...</p>
       ) : (

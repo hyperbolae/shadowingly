@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { useAudioService } from '../../../audioService/hooks'
-import { AudioStatus } from '../../../constants/audioStatus'
+import { AudioStatus } from '../../../domain/audioStatus'
 import { ProgressBar } from './ProgressBar'
 
 export function ProgressBarContainer() {
