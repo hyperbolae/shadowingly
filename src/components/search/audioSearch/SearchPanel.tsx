@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { searchUrl } from '../../../constants/tatoeba'
-import { Sentence, TatoebaResponse } from '../../../types/tatoeba'
+import { Sentence } from '../../../types/sentence'
+import { parseTatoebaSentence, TatoebaResponse } from '../../../types/tatoeba'
 import { SearchItem } from '../searchItem/SearchItem'
 
 
@@ -34,13 +35,16 @@ export function SearchPanel() {
     setLoading(true)
     const response = await fetch(searchUrl + getSearchUrl(searchTerm))
     const data: TatoebaResponse = await response.json()
-    setResults(data.results)
+
+    const sentences = data.results
+      .filter(sentence => sentence.audios.length > 0)
+      .map(parseTatoebaSentence)
+
+    setResults(sentences)
     setLoading(false)
   }, [searchTerm])
-
   useEffect(() => {
     fetchTatoebaData()
-    console.log('fetching data')
   }, [fetchTatoebaData])
 
   return (
