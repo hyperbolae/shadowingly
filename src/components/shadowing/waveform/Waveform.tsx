@@ -1,11 +1,11 @@
 import React from "react"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useAppSelector } from "../../../app/hooks"
 import { useAudioService } from "../../../audioService/hooks"
 
 function normalize_array(input: number[]) {
-  let ratio = Math.max.apply(Math, input) / 100
-  let normalized: Array<number> = []
+  const ratio = Math.max.apply(Math, input) / 100
+  const normalized: Array<number> = []
   for (let i = 0; i < input.length; i++) {
     normalized.push(Math.round(input[i] / ratio))
   }
@@ -13,7 +13,7 @@ function normalize_array(input: number[]) {
 }
 
 function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
-  let window_size = Math.floor(input!.length / num_chunks)
+  const window_size = Math.floor(input!.length / num_chunks)
   let volume = []
 
   for (let i = 0; i < num_chunks; i++) {
@@ -27,16 +27,22 @@ function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
 
 export function Waveform() {
   const audioService = useAudioService()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const playbackBuffer = audioService.getPlaybackBuffer()
   useAppSelector((state) => state.playbackFile.loaded)
+
   useEffect(() => {
-    let canvas = document.getElementById("waveform") as HTMLCanvasElement
+    let canvas = canvasRef.current
+    if (!canvas || !playbackBuffer) {
+      return
+    }
     canvas.style.width = "100%"
     let waveform_line_count = 50
     canvas.width = canvas.offsetWidth
-    let context: any = canvas.getContext("2d")!
-    let piece_size = canvas.width / waveform_line_count
+    const context: any = canvas.getContext("2d")!
+    const piece_size = canvas.width / waveform_line_count
     context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
-    let channel_data = audioService.playbackBuffer?.getChannelData(0)
+    const channel_data = playbackBuffer.getChannelData(0)
     if (channel_data) {
       let volume = chunk_pulse_code_modulation(channel_data, waveform_line_count)
       volume = normalize_array(volume)
@@ -46,6 +52,6 @@ export function Waveform() {
       }
       context.fill()
     }
-  }, [audioService.playbackBuffer])
-  return <canvas id="waveform" width="100%" height="150px"></canvas>
+  }, [playbackBuffer])
+  return <canvas ref={canvasRef} width="100%" height="150px"></canvas>
 }

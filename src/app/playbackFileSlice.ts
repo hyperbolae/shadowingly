@@ -27,7 +27,6 @@ export const playbackFileSlice = createSlice({
       state.loaded = false
     },
     setPlaybackFileLoaded: (state) => {
-      console.log("LOADED")
       state.loaded = true
     }
   }
