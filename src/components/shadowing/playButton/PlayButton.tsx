@@ -1,7 +1,7 @@
 import React from 'react'
 import { pauseAudio, playAudio, playAudioWithDelay } from '../../../app/audioSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { AudioStatus } from '../../../constants/audioStatus'
+import { AudioStatus } from '../../../domain/audioStatus'
 import { Icon, PauseIcon, PlayIcon } from '../../shared/icons/icons'
 import '../../styles/Button.css'
 

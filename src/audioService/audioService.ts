@@ -1,5 +1,5 @@
-import { Channel } from '../constants/channel'
-import { ListeningType, Mixed, Single } from '../constants/listeningType'
+import { Channel } from '../domain/channel'
+import { ListeningType, Mixed, Single } from '../domain/listeningType'
 import { ReadFile } from '../utils/fileReader'
 
 const disconnect = (source: AudioNode | undefined) => source && source.disconnect()
@@ -77,8 +77,8 @@ export class AudioService {
       if (this.playbackSource) this.playbackSource.stop()
       if (this.recordedSource) this.recordedSource.stop()
     } catch (e) {
-      console.warn("Attempted to call stop() on an AudioSource that ",
-                   "has not been started. See nested exception:\n", e)
+      console.warn('Attempted to call stop() on an AudioSource that ',
+        'has not been started. See nested exception:\n', e)
     }
   }
 

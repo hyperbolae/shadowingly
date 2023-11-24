@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { useAppDispatch } from '../../app/hooks'
 import { setPlaybackFile } from '../../app/playbackFileSlice'
 import { setCurrentView } from '../../app/viewSlice'
-import { Views } from '../../constants/views'
+import { Views } from '../../domain/views'
 import './MainFileSelector.css'
 
 export function MainFileSelector() {

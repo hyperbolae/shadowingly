@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../../app/hooks'
 import { setCurrentView } from '../../../app/viewSlice'
-import { Views } from '../../../constants/views'
+import { Views } from '../../../domain/views'
 import { ListeningTypeSelector } from '../channelSelector/ListeningTypeSelector'
 import { PlayButton } from '../playButton/PlayButton'
 import { ProgressBarContainer } from '../progressBar/ProgressBarContainer'

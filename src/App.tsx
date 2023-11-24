@@ -4,7 +4,7 @@ import { useAppSelector } from './app/hooks'
 import { MainFileSelector } from './components/mainFileSelector/MainFileSelector'
 import { SearchPanel } from './components/search/audioSearch/SearchPanel'
 import { ShadowingLayout } from './components/shadowing/shadowingLayout/ShadowingLayout'
-import { Views } from './constants/views'
+import { Views } from './domain/views'
 
 function App() {
   const currentPanel = useAppSelector(state => state.panel.current)
