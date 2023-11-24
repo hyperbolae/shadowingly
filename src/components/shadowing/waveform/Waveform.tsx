@@ -31,7 +31,6 @@ export function Waveform() {
   const audioService = useAudioService();
   const set = useAppSelector((state) => state.playbackFile.loaded);
   useEffect(() => {
-    console.log(audioService.playbackBuffer);
     let canvas = document.getElementById("waveform") as HTMLCanvasElement;
     canvas.style.width = "100%";
     let waveform_line_count = 50;

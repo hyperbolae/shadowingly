@@ -5,25 +5,32 @@ import { AppThunk } from "./store"
 import { setCurrentView } from "./viewSlice"
 
 export interface PlaybackFileState {
-  set: boolean
+  set: boolean;
+  loaded: boolean;
 }
 
 const initialState: PlaybackFileState = {
-  set: false
-}
+  set: false,
+  loaded: false,
+};
 
 export const playbackFileSlice = createSlice({
   name: "playbackFile",
   initialState: initialState,
   reducers: {
     _setPlaybackFile: (state, _: PayloadAction<File>) => {
-      state.set = true
+      state.set = true;
+      state.loaded = false;
     },
     clearPlaybackFile: (state) => {
-      state.set = false
-    }
-  }
-})
+      state.set = false;
+      state.loaded = false;
+    },
+    playbackFileLoaded: (state) => {
+      state.loaded = true;
+    },
+  },
+});
 
 export const { _setPlaybackFile } = playbackFileSlice.actions
 
