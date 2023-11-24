@@ -28,12 +28,12 @@ function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
 export function Waveform() {
   const audioService = useAudioService()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const playbackBuffer = audioService.getPlaybackBuffer()
+  const channel_data = audioService.getPlaybackChannelData()
   useAppSelector((state) => state.playbackFile.loaded)
 
   useEffect(() => {
     let canvas = canvasRef.current
-    if (!canvas || !playbackBuffer) {
+    if (!canvas || !channel_data) {
       return
     }
     canvas.style.width = "100%"
@@ -42,7 +42,6 @@ export function Waveform() {
     const context: any = canvas.getContext("2d")!
     const piece_size = canvas.width / waveform_line_count
     context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
-    const channel_data = playbackBuffer.getChannelData(0)
     if (channel_data) {
       let volume = chunk_pulse_code_modulation(channel_data, waveform_line_count)
       volume = normalize_array(volume)
@@ -52,6 +51,6 @@ export function Waveform() {
       }
       context.fill()
     }
-  }, [playbackBuffer])
+  }, [channel_data])
   return <canvas ref={canvasRef} width="100%" height="150px"></canvas>
 }
