@@ -1,5 +1,6 @@
 import { useAppDispatch } from "../../../app/hooks"
 import { setPlaybackFile } from "../../../app/playbackFileSlice"
+import { setSentence } from "../../../app/sentenceSlice"
 import { Sentence } from "../../../domain/sentence"
 import { baseAudioUrl } from "../../../domain/tatoeba"
 import { Dialogue } from "../../shared/dialogue/Dialogue"
@@ -24,6 +25,7 @@ export function SearchItem({ sentence }: SearchItemProps) {
     const audioFile = new File([response], "selected-audio.mp3", { type: "audio/mpeg" })
 
     dispatch(setPlaybackFile(audioFile))
+    dispatch(setSentence(sentence))
   }
 
   return (

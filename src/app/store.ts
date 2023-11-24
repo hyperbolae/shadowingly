@@ -2,13 +2,15 @@ import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit"
 import { audioServiceMiddleware } from "./audioServiceMiddleware"
 import { audioReducer } from "./audioSlice"
 import { _setPlaybackFile, playbackFileReducer } from "./playbackFileSlice"
+import { sentenceReducer } from "./sentenceSlice"
 import { viewReducer } from "./viewSlice"
 
 export const store = configureStore({
   reducer: {
     audio: audioReducer,
     playbackFile: playbackFileReducer,
-    panel: viewReducer
+    panel: viewReducer,
+    sentence: sentenceReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

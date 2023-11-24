@@ -43,7 +43,6 @@ export function SearchPanel(props: SearchPanelProps) {
     const response = await fetch(searchUrl + getSearchUrl(tatoebaCode, searchTerm))
     const data: TatoebaResponse = await response.json()
 
-    console.log("tatoeba", data)
     const sentences = data.results
       .filter((sentence) => sentence.audios.length > 0)
       .slice(0, 7)
