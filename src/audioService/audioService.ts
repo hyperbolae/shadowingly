@@ -21,6 +21,7 @@ export class AudioService {
   getCurrentTime = () => this.context.currentTime - this.startTime
   getPlaybackDuration = () => this.playbackBuffer?.duration
   getRecordingDuration = () => this.playbackBuffer?.duration
+  getPlaybackChannelData = () => this.playbackBuffer?.getChannelData(0)
 
   constructor(context: AudioContext = new AudioContext()) {
     this.context = context
