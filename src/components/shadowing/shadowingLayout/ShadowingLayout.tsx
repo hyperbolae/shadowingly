@@ -14,6 +14,7 @@ export function ShadowingLayout() {
   return (
     <div className={styles.layout}>
       <div className={styles.playback}>
+        <Waveform />
         <ProgressBarContainer />
         <div className={styles.buttons}>
           <RecordButton />
