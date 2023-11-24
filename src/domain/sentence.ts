@@ -7,17 +7,17 @@ export interface Sentence {
   audio: Audio
 }
 
-interface Transcription {
+export interface Transcription {
   text: string
-  html: string
+  html?: string
   script: string
 }
 
-interface Translation {
+export interface Translation {
   text: string
 }
 
-interface Audio {
+export interface Audio {
   id: number
   author: string
   attribution_url?: string
