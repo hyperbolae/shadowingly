@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { useAudioService } from "../../../audioService/hooks";
 
@@ -29,7 +29,7 @@ function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
 
 export function Waveform() {
   const audioService = useAudioService();
-  const set = useAppSelector((state) => state.playbackFile.loaded);
+  useAppSelector((state) => state.playbackFile.loaded);
   useEffect(() => {
     let canvas = document.getElementById("waveform") as HTMLCanvasElement;
     canvas.style.width = "100%";
