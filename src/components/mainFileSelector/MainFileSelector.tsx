@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react'
-import { useAppDispatch } from '../../app/hooks'
-import { setPlaybackFile } from '../../app/playbackFileSlice'
-import { setCurrentView } from '../../app/viewSlice'
-import { Views } from '../../domain/views'
-import './MainFileSelector.css'
+import React, { ChangeEvent } from "react"
+import { useAppDispatch } from "../../app/hooks"
+import { setPlaybackFile } from "../../app/playbackFileSlice"
+import { setCurrentView } from "../../app/viewSlice"
+import { Views } from "../../domain/views"
+import "./MainFileSelector.css"
 
 export function MainFileSelector() {
   const dispatch = useAppDispatch()
@@ -21,14 +21,16 @@ export function MainFileSelector() {
   return (
     <div className="main-selector-container">
       <label className="main-selector">
-        <input type="file" id="select-file" name="file" accept=".mp3" onChange={handleUploadChange}/>
+        <input type="file" id="select-file" name="file" accept=".mp3" onChange={handleUploadChange} />
         <span>Select a file</span>
       </label>
       <button className="search-button" onClick={handleSearchClick}>
         Search
       </button>
       {/*todo: add learn more/landing page*/}
-      <a className="learn-more" href="/about" target="_blank" rel="noopener noreferrer">Learn more</a>
+      <a className="learn-more" href="/about" target="_blank" rel="noopener noreferrer">
+        Learn more
+      </a>
     </div>
   )
 }

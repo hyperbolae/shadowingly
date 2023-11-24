@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useAppSelector } from '../../../app/hooks'
-import { useAudioService } from '../../../audioService/hooks'
-import { AudioStatus } from '../../../domain/audioStatus'
-import { ProgressBar } from './ProgressBar'
+import React, { useEffect, useRef, useState } from "react"
+import { useAppSelector } from "../../../app/hooks"
+import { useAudioService } from "../../../audioService/hooks"
+import { AudioStatus } from "../../../domain/audioStatus"
+import { ProgressBar } from "./ProgressBar"
 
 export function ProgressBarContainer() {
   const [currentTime, setCurrentTime] = useState(0)
-  const audioStatus = useAppSelector(state => state.audio.status)
+  const audioStatus = useAppSelector((state) => state.audio.status)
   const audioService = useAudioService()
 
   const requestRef = useRef<number>()
@@ -30,7 +30,7 @@ export function ProgressBarContainer() {
       setCurrentTime(0)
     }
 
-    if ((audioStatus === AudioStatus.Playing) && !isAnimating.current) {
+    if (audioStatus === AudioStatus.Playing && !isAnimating.current) {
       isAnimating.current = true
       animate()
     }

@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AudioStatus } from '../domain/audioStatus'
-import { AppThunk } from './store'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { AudioStatus } from "../domain/audioStatus"
+import { AppThunk } from "./store"
 
 export interface AudioState {
-  status: AudioStatus,
-  isRecording: boolean,
-  recordedSet: boolean,
+  status: AudioStatus
+  isRecording: boolean
+  recordedSet: boolean
   delay_seconds: number
 }
 
@@ -17,7 +17,7 @@ const initialState: AudioState = {
 }
 
 export const audioSlice = createSlice({
-  name: 'audioState',
+  name: "audioState",
   initialState: initialState,
   reducers: {
     pauseAudio: (state) => {

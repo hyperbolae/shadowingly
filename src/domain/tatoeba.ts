@@ -1,8 +1,9 @@
-import { Sentence } from './sentence'
+import { Sentence } from "./sentence"
 
 export const baseUrl = process.env.REACT_APP_TATOEBA_BASE_URL
-export const searchUrl = baseUrl + '/api_v0/search?has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no'
-export const baseAudioUrl = baseUrl + '/audio/download/'
+export const searchUrl =
+  baseUrl + "/api_v0/search?has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no"
+export const baseAudioUrl = baseUrl + "/audio/download/"
 
 export interface TatoebaResponse {
   paging: Paging
@@ -96,11 +97,14 @@ export interface TatoebaTranslation {
 }
 
 export function parseTatoebaSentence(sentence: TatoebaSentence): Sentence {
-  const transcription = sentence.transcriptions.length > 0 ? {
-    text: sentence.transcriptions[0].text,
-    html: sentence.transcriptions[0].html,
-    script: sentence.transcriptions[0].script
-  } : undefined
+  const transcription =
+    sentence.transcriptions.length > 0
+      ? {
+          text: sentence.transcriptions[0].text,
+          html: sentence.transcriptions[0].html,
+          script: sentence.transcriptions[0].script
+        }
+      : undefined
   const translation = sentence.translations[0].length > 0 ? { text: sentence.translations[0][0].text } : undefined
 
   return {

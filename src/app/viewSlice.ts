@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Views } from '../domain/views'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { Views } from "../domain/views"
 
 export interface ViewSlice {
   current: Views
@@ -10,7 +10,7 @@ const initialState: ViewSlice = {
 }
 
 export const viewSlice = createSlice({
-  name: 'view',
+  name: "view",
   initialState: initialState,
   reducers: {
     setCurrentView: (state, action: PayloadAction<Views>) => {
@@ -19,8 +19,6 @@ export const viewSlice = createSlice({
   }
 })
 
-export const {
-  setCurrentView
-} = viewSlice.actions
+export const { setCurrentView } = viewSlice.actions
 
 export const viewReducer = viewSlice.reducer

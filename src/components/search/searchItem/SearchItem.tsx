@@ -1,7 +1,7 @@
-import { useAppDispatch } from '../../../app/hooks'
-import { setPlaybackFile } from '../../../app/playbackFileSlice'
-import { Sentence } from '../../../domain/sentence'
-import { baseAudioUrl } from '../../../domain/tatoeba'
+import { useAppDispatch } from "../../../app/hooks"
+import { setPlaybackFile } from "../../../app/playbackFileSlice"
+import { Sentence } from "../../../domain/sentence"
+import { baseAudioUrl } from "../../../domain/tatoeba"
 
 export interface SearchItemProps {
   sentence: Sentence
@@ -19,7 +19,7 @@ export function SearchItem({ sentence }: SearchItemProps) {
   async function handleAudioSelected(sentence: Sentence) {
     const url = baseAudioUrl + sentence.audio.id
     const response = await (await fetch(url)).blob()
-    const audioFile = new File([response], 'selected-audio.mp3', { type: 'audio/mpeg' })
+    const audioFile = new File([response], "selected-audio.mp3", { type: "audio/mpeg" })
 
     dispatch(setPlaybackFile(audioFile))
   }
