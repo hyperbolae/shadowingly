@@ -1,10 +1,9 @@
-import React from 'react'
-import { pauseAudio, playAudio, playAudioWithDelay } from '../../../app/audioSlice'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { AudioStatus } from '../../../domain/audioStatus'
-import { Icon, PauseIcon, PlayIcon } from '../../shared/icons/icons'
-import '../../styles/Button.css'
-
+import React from "react"
+import { pauseAudio, playAudio, playAudioWithDelay } from "../../../app/audioSlice"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { AudioStatus } from "../../../domain/audioStatus"
+import { Icon, PauseIcon, PlayIcon } from "../../shared/icons/icons"
+import "../../styles/Button.css"
 
 function getIcon(status: AudioStatus): Icon {
   switch (status) {
@@ -21,7 +20,7 @@ function getIcon(status: AudioStatus): Icon {
 }
 
 export function PlayButton() {
-  const status = useAppSelector(state => state.audio.status)
+  const status = useAppSelector((state) => state.audio.status)
   const dispatch = useAppDispatch()
 
   const Icon = getIcon(status)
@@ -42,7 +41,7 @@ export function PlayButton() {
 
   return (
     <button className="round-button" onClick={handleClick}>
-      <Icon/>
+      <Icon />
     </button>
   )
 }

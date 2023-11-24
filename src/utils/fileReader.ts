@@ -4,7 +4,7 @@ export function ReadFile(inputFile: File): Promise<ArrayBuffer | undefined> {
   return new Promise((resolve, reject) => {
     reader.onerror = () => {
       reader.abort()
-      reject(new DOMException('Problem parsing input file.'))
+      reject(new DOMException("Problem parsing input file."))
     }
 
     reader.onload = () => {

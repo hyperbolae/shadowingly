@@ -1,6 +1,6 @@
-import { Channel } from '../domain/channel'
-import { ListeningType, Mixed, Single } from '../domain/listeningType'
-import { ReadFile } from '../utils/fileReader'
+import { Channel } from "../domain/channel"
+import { ListeningType, Mixed, Single } from "../domain/listeningType"
+import { ReadFile } from "../utils/fileReader"
 
 const disconnect = (source: AudioNode | undefined) => source && source.disconnect()
 
@@ -27,20 +27,23 @@ export class AudioService {
     this.merger = context.createChannelMerger(2)
 
     this.requestPermissions()
-      .then(stream => {
+      .then((stream) => {
         this.mediaRecorder = new MediaRecorder(stream)
-        this.mediaRecorder.ondataavailable = blobEvent => {
+        this.mediaRecorder.ondataavailable = (blobEvent) => {
           return this.constructBufferFromBlob(blobEvent.data)
         }
-      }).catch(_ => {
-      console.log('TODO fix or give error message?')
-    })
+      })
+      .catch((_) => {
+        console.log("TODO fix or give error message?")
+      })
   }
 
   record(onEndedListener?: (ev: Event) => void) {
     if (!this.mediaRecorder) {
-      console.warn('Attempted to record before MediaRecorder was constructed. ' +
-        'An AudioRecorder may not have initialized correctly.')
+      console.warn(
+        "Attempted to record before MediaRecorder was constructed. " +
+          "An AudioRecorder may not have initialized correctly."
+      )
       return
     }
 
@@ -57,7 +60,7 @@ export class AudioService {
   }
 
   start(onEndedListener?: (ev: Event) => void) {
-    if (this.context.state === 'suspended') {
+    if (this.context.state === "suspended") {
       this.context.resume()
       return
     }
@@ -77,8 +80,11 @@ export class AudioService {
       if (this.playbackSource) this.playbackSource.stop()
       if (this.recordedSource) this.recordedSource.stop()
     } catch (e) {
-      console.warn('Attempted to call stop() on an AudioSource that ',
-        'has not been started. See nested exception:\n', e)
+      console.warn(
+        "Attempted to call stop() on an AudioSource that ",
+        "has not been started. See nested exception:\n",
+        e
+      )
     }
   }
 
@@ -100,8 +106,8 @@ export class AudioService {
   }
 
   private async constructBufferFromBlob(rawAudio: Blob) {
-    const blob = new Blob([rawAudio], { 'type': 'audio/ogg codecs=opus' })
-    await this.setRecordedFile(new File([blob], 'recorded'))
+    const blob = new Blob([rawAudio], { type: "audio/ogg codecs=opus" })
+    await this.setRecordedFile(new File([blob], "recorded"))
   }
 
   private clearRecordedSource = () => {
@@ -111,7 +117,7 @@ export class AudioService {
   }
 
   private async createAudioBuffer(file: File) {
-    if (this.context.state === 'suspended') {
+    if (this.context.state === "suspended") {
       await this.context.resume()
     }
     const arrayBuffer = await ReadFile(file)
@@ -125,9 +131,7 @@ export class AudioService {
       const source = this.context.createBufferSource()
       source.buffer = buffer
 
-      if (onEndedListener) (
-        source.addEventListener('ended', onEndedListener)
-      )
+      if (onEndedListener) source.addEventListener("ended", onEndedListener)
 
       return source
     }

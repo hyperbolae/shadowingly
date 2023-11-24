@@ -1,18 +1,18 @@
 .round-button {
-    box-shadow: var(--shadow);
-    transition: var(--color-transition);
-    background-color: var(--color-light-grey);
-    color: var(--color-grey);
-    border: none;
-    border-radius: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 60px;
+  box-shadow: var(--shadow);
+  transition: var(--color-transition);
+  background-color: var(--color-light-grey);
+  color: var(--color-grey);
+  border: none;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
 }
 
 .round-button:hover {
-    background: var(--color-grey);
-    color: transparent;
+  background: var(--color-grey);
+  color: transparent;
 }

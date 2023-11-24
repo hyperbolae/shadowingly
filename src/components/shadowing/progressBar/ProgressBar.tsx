@@ -1,5 +1,5 @@
-import React from 'react'
-import './ProgressBar.css'
+import React from "react"
+import "./ProgressBar.css"
 
 interface ProgressBarProps {
   endPercentage?: number
@@ -11,8 +11,8 @@ export function ProgressBar({ endPercentage = 1, currentPercentage }: ProgressBa
 
   return (
     <div className="border">
-      <div className="line" style={{ width: +endPercentage * 100 + '%' }}>
-        <div className="highlight" style={{ width: +width + '%' }}/>
+      <div className="line" style={{ width: +endPercentage * 100 + "%" }}>
+        <div className="highlight" style={{ width: +width + "%" }} />
       </div>
     </div>
   )
