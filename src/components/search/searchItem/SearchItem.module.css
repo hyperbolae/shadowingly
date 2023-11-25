@@ -1,0 +1,20 @@
+.container {
+  padding-top: 20px;
+  list-style-type: none;
+  display: inline-grid;
+  grid-template-columns: auto 150px;
+  width: 100%;
+  grid-gap: 10px;
+}
+
+.buttons {
+  width: 140px;
+}
+
+.sentence {
+  font-size: 20px;
+}
+
+.sentence p {
+  margin: 0;
+}

@@ -1,6 +1,7 @@
-import { useAppDispatch } from "../../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { setCurrentView } from "../../../app/viewSlice"
 import { Views } from "../../../domain/views"
+import { Dialogue } from "../../shared/dialogue/Dialogue"
 import { ListeningTypeSelector } from "../channelSelector/ListeningTypeSelector"
 import { PlayButton } from "../playButton/PlayButton"
 import { ProgressBarContainer } from "../progressBar/ProgressBarContainer"
@@ -10,6 +11,7 @@ import styles from "./ShadowingLayout.module.css"
 
 export function ShadowingLayout() {
   const dispatch = useAppDispatch()
+  const sentence = useAppSelector((state) => state.sentence.current)
 
   return (
     <div className={styles.layout}>
@@ -20,6 +22,7 @@ export function ShadowingLayout() {
           <RecordButton />
           <PlayButton />
         </div>
+        <div className={styles.dialogue}>{sentence && <Dialogue sentence={sentence} showTranscription={true} />}</div>
       </div>
       <div className={styles.options}>
         <ListeningTypeSelector />

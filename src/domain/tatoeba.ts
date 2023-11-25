@@ -1,8 +1,10 @@
-import { Sentence } from "./sentence"
+import { Sentence, Transcription } from "./sentence"
 
 export const baseUrl = process.env.REACT_APP_TATOEBA_BASE_URL
 export const searchUrl =
-  baseUrl + "/api_v0/search?has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no"
+  baseUrl +
+  "/api_v0/search?has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no&limit=1"
+
 export const baseAudioUrl = baseUrl + "/audio/download/"
 
 export interface TatoebaResponse {
@@ -76,7 +78,7 @@ export interface TatoebaTranscription {
   modified: string
   readonly: boolean
   type: string
-  html: string
+  html?: string
   markup: null
   info_message: string
 }
@@ -96,15 +98,23 @@ export interface TatoebaTranslation {
   lang_tag: string
 }
 
+function getTranscription(transcriptions: TatoebaTranscription[]): Transcription | undefined {
+  const transcription = transcriptions.find(
+    (transcription) => transcription.script.toLowerCase() === "hrkt" || transcription.script.toLowerCase() === "latn"
+  )
+
+  if (transcription) {
+    return {
+      text: transcription.text,
+      html: transcription.html,
+      script: transcription.script
+    }
+  }
+}
+
 export function parseTatoebaSentence(sentence: TatoebaSentence): Sentence {
-  const transcription =
-    sentence.transcriptions.length > 0
-      ? {
-          text: sentence.transcriptions[0].text,
-          html: sentence.transcriptions[0].html,
-          script: sentence.transcriptions[0].script
-        }
-      : undefined
+  const transcription = getTranscription(sentence.transcriptions)
+
   const translation = sentence.translations[0].length > 0 ? { text: sentence.translations[0][0].text } : undefined
 
   return {
@@ -112,7 +122,7 @@ export function parseTatoebaSentence(sentence: TatoebaSentence): Sentence {
     text: sentence.text,
     translation: translation,
     transcription: transcription,
-    languageCode: sentence.lang_tag,
+    languageCode: sentence.lang_tag.slice(0, 2),
     audio: {
       id: sentence.audios[0].id,
       author: sentence.audios[0].author,

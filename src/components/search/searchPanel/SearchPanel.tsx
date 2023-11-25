@@ -3,6 +3,7 @@ import { DefaultLanguage, Languages } from "../../../domain/languages"
 import { Sentence } from "../../../domain/sentence"
 import { parseTatoebaSentence, searchUrl, TatoebaResponse } from "../../../domain/tatoeba"
 import { SearchItem } from "../searchItem/SearchItem"
+import styles from "./SearchPanel.module.css"
 
 const defaultMinCount = 10
 
@@ -42,7 +43,10 @@ export function SearchPanel(props: SearchPanelProps) {
     const response = await fetch(searchUrl + getSearchUrl(tatoebaCode, searchTerm))
     const data: TatoebaResponse = await response.json()
 
-    const sentences = data.results.filter((sentence) => sentence.audios.length > 0).map(parseTatoebaSentence)
+    const sentences = data.results
+      .filter((sentence) => sentence.audios.length > 0)
+      .slice(0, 7)
+      .map(parseTatoebaSentence)
 
     setResults(sentences)
     setLoading(false)
@@ -52,7 +56,7 @@ export function SearchPanel(props: SearchPanelProps) {
   }, [fetchTatoebaData])
 
   return (
-    <div>
+    <div className={styles.container}>
       <input
         type="text"
         value={searchTerm}
@@ -71,7 +75,7 @@ export function SearchPanel(props: SearchPanelProps) {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul className={styles.sentences}>
           {results.map((sentence, index) => (
             <SearchItem sentence={sentence} key={index} />
           ))}

@@ -2,7 +2,7 @@ import React from "react"
 import styles from "./App.module.css"
 import { useAppSelector } from "./app/hooks"
 import { MainFileSelector } from "./components/mainFileSelector/MainFileSelector"
-import { SearchPanel } from "./components/search/audioSearch/SearchPanel"
+import { SearchPanel } from "./components/search/searchPanel/SearchPanel"
 import { ShadowingLayout } from "./components/shadowing/shadowingLayout/ShadowingLayout"
 import { Views } from "./domain/views"
 
