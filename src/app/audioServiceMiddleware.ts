@@ -24,7 +24,7 @@ startAppListening({
 
 startAppListening({
   actionCreator: pauseAudio,
-  effect: (_, listenerApi) => {
+  effect: (_) => {
     audioService.pause()
   }
 })
