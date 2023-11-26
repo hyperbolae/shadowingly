@@ -26,7 +26,9 @@ export function ShadowingLayout() {
       </div>
       <div className={styles.options}>
         <ListeningTypeSelector />
-        <button onClick={() => dispatch(setCurrentView(Views.MainFileSelector))}>Choose new audio</button>
+        <button className={styles.newAudio} onClick={() => dispatch(setCurrentView(Views.MainFileSelector))}>
+          Choose new audio
+        </button>
       </div>
     </div>
   )

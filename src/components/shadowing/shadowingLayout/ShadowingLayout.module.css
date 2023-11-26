@@ -16,6 +16,9 @@
 
 .options {
   margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .playback {
@@ -24,7 +27,7 @@
 }
 
 .dialogue {
-  padding: 20px;
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,4 +35,11 @@
 
 .dialogue p {
   margin: 0;
+}
+
+.newAudio {
+  composes: squareButton from "../../styles/Button.module.css";
+  width: 190px;
+  display: block;
+  margin-top: 20px;
 }

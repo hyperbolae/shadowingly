@@ -16,3 +16,23 @@
   background: var(--color-grey);
   color: transparent;
 }
+
+.squareButton {
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 20px;
+  transition: var(--color-transition);
+  background: var(--color-light-grey);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.squareButton:hover {
+  background: var(--color-grey);
+}
