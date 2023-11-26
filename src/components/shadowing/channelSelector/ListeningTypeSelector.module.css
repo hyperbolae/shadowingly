@@ -17,7 +17,7 @@
 }
 
 .channelButton {
-  composes: squareButton from "../../styles/Button.module.css";
+  composes: squareButton from "../../styles/buttons.module.css";
   width: 190px;
   display: block;
 }

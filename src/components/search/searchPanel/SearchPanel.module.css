@@ -1,7 +1,14 @@
 .container {
-  padding: 30px;
+  padding: 25px 50px;
+
+  display: grid;
+  grid-template-rows: 50px auto;
+  min-height: inherit;
 }
 
 .sentences {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }

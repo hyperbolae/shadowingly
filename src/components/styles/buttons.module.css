@@ -24,13 +24,14 @@
   transition: var(--color-transition);
   background: var(--color-light-grey);
   box-shadow: var(--shadow);
-  border-radius: 10px;
+  border-radius: 6px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   border: none;
   box-sizing: border-box;
+  height: 40px;
 }
 
 .squareButton:hover {
