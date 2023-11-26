@@ -1,36 +1,29 @@
-import React, { ChangeEvent } from "react"
+import React from "react"
 import { useAppDispatch } from "../../app/hooks"
-import { setPlaybackFile } from "../../app/playbackFileSlice"
 import { setCurrentView } from "../../app/viewSlice"
 import { Views } from "../../domain/views"
-import "./MainFileSelector.css"
+import { DownloadInput } from "../shared/downloadInput/DownloadInput"
+import "./MainFileSelector.module.css"
+import styles from "./MainFileSelector.module.css"
+
+const downloadId = "select-file"
 
 export function MainFileSelector() {
   const dispatch = useAppDispatch()
-
-  async function handleUploadChange(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.files) {
-      dispatch(setPlaybackFile(event.target.files[0]))
-    }
-  }
 
   function handleSearchClick() {
     dispatch(setCurrentView(Views.Search))
   }
 
   return (
-    <div className="main-selector-container">
-      <label className="main-selector">
-        <input type="file" id="select-file" name="file" accept=".mp3" onChange={handleUploadChange} />
-        <span>Select a file</span>
-      </label>
-      <button className="search-button" onClick={handleSearchClick}>
-        Search
+    <div className={styles.container}>
+      <button className={styles.search} onClick={handleSearchClick}>
+        Search for audio
       </button>
-      {/*todo: add learn more/landing page*/}
-      <a className="learn-more" href="/about" target="_blank" rel="noopener noreferrer">
-        Learn more
-      </a>
+      <label className={styles.upload} htmlFor={downloadId}>
+        <DownloadInput id={downloadId} />
+        <span>Upload an MP3</span>
+      </label>
     </div>
   )
 }

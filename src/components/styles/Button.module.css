@@ -1,4 +1,4 @@
-.round-button {
+.roundButton {
   box-shadow: var(--shadow);
   transition: var(--color-transition);
   background-color: var(--color-light-grey);
@@ -12,7 +12,7 @@
   height: 60px;
 }
 
-.round-button:hover {
+.roundButton:hover {
   background: var(--color-grey);
   color: transparent;
 }
