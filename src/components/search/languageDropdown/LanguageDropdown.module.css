@@ -1,0 +1,87 @@
+.customSelect {
+  --select-height: 24px;
+  height: var(--select-height);
+}
+
+.selectButton {
+  height: var(--select-height);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.customSelect svg,
+.customSelect svg path {
+  fill: var(--color-icon);
+}
+
+.selectedValue {
+  text-align: left;
+}
+
+.arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--color-icon);
+  transition: transform ease-in-out 0.3s;
+}
+
+.selectDropdown {
+  position: absolute;
+  list-style: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-grey);
+  border-radius: 4px;
+  padding: 0;
+  margin-top: 10px;
+  transition: 0.15s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.selectDropdown li {
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.selectDropdown li label {
+  width: 100%;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.selectDropdown input[type="radio"] {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+}
+
+.selectDropdown input:checked ~ label {
+  background-color: var(--color-grey-lighter);
+}
+
+.selectDropdown input:hover ~ label {
+  background-color: var(--color-grey);
+}
+
+.selectDropdown input:focus ~ label {
+  background-color: var(--color-grey);
+}
+
+.customSelect.active .arrow {
+  transform: rotate(180deg);
+}
+
+.customSelect.active .selectDropdown {
+  opacity: 1;
+  visibility: visible;
+}

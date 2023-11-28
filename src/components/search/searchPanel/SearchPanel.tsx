@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { DefaultLanguage, Languages } from "../../../domain/languages"
+import { DefaultLanguage, Language, Languages } from "../../../domain/languages"
 import { Sentence } from "../../../domain/sentence"
 import { parseTatoebaSentence, searchUrl, TatoebaResponse } from "../../../domain/tatoeba"
 import { SearchHeader } from "../searchHeader/SearchHeader"
@@ -29,17 +29,18 @@ function getSearchUrl(languageCode: string, searchTerm?: string, minCount?: numb
 }
 
 export interface SearchPanelProps {
-  defaultLanguageCode?: string
+  defaultLanguage?: Language
 }
 
 export function SearchPanel(props: SearchPanelProps) {
   const [results, setResults] = useState<Sentence[]>([])
   const [loading, setLoading] = useState(true)
-  const [languageCode, setLanguageCode] = useState(props.defaultLanguageCode || DefaultLanguage.code)
+  const [language, setLanguage] = useState(props.defaultLanguage || DefaultLanguage)
 
   const fetchTatoebaData = useCallback(async () => {
     setLoading(true)
-    const tatoebaCode = Languages.find((lang) => lang.code === languageCode)?.tatoebaCode || DefaultLanguage.tatoebaCode
+    const tatoebaCode =
+      Languages.find((lang) => lang.code === language.code)?.tatoebaCode || DefaultLanguage.tatoebaCode
     const response = await fetch(searchUrl + getSearchUrl(tatoebaCode))
     const data: TatoebaResponse = await response.json()
 
@@ -50,7 +51,7 @@ export function SearchPanel(props: SearchPanelProps) {
 
     setResults(sentences)
     setLoading(false)
-  }, [languageCode])
+  }, [language.code])
 
   useEffect(() => {
     fetchTatoebaData()
@@ -58,12 +59,7 @@ export function SearchPanel(props: SearchPanelProps) {
 
   return (
     <div className={styles.container}>
-      <SearchHeader
-        languageCode={languageCode}
-        loading={loading}
-        onSubmit={fetchTatoebaData}
-        onLanguageChange={setLanguageCode}
-      />
+      <SearchHeader language={language} loading={loading} onSubmit={fetchTatoebaData} onLanguageChange={setLanguage} />
       <ul className={styles.sentences}>
         {loading ? <p>Loading...</p> : results.map((sentence) => <SearchItem key={sentence.id} sentence={sentence} />)}
       </ul>

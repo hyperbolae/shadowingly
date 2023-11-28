@@ -1,7 +1,7 @@
 .roundButton {
   box-shadow: var(--shadow);
   transition: var(--color-transition);
-  background-color: var(--color-light-grey);
+  background-color: var(--color-grey-light);
   color: var(--color-grey);
   border: none;
   border-radius: 2rem;
@@ -14,7 +14,10 @@
 
 .roundButton:hover {
   background: var(--color-grey);
-  color: transparent;
+}
+
+.roundButton:active {
+  background: var(--color-grey-lighter);
 }
 
 .squareButton {
@@ -22,7 +25,7 @@
   text-align: center;
   padding: 10px 20px;
   transition: var(--color-transition);
-  background: var(--color-light-grey);
+  background: var(--color-grey-light);
   box-shadow: var(--shadow);
   border-radius: 6px;
   -webkit-user-select: none;
@@ -36,4 +39,8 @@
 
 .squareButton:hover {
   background: var(--color-grey);
+}
+
+.squareButton:active {
+  background: var(--color-grey-lighter);
 }

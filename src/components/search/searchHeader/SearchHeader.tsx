@@ -1,15 +1,16 @@
 import { useState } from "react"
-import { Languages } from "../../../domain/languages"
+import { Language } from "../../../domain/languages"
+import { LanguageDropdown } from "../languageDropdown/LanguageDropdown"
 import styles from "./SearchHeader.module.css"
 
 export interface SearchHeaderProps {
-  languageCode: string
+  language: Language
   loading: boolean
   onSubmit: (searchTerm: string) => void
-  onLanguageChange: (languageCode: string) => void
+  onLanguageChange: (languageCode: Language) => void
 }
 
-export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit }: SearchHeaderProps) {
+export function SearchHeader({ language, loading, onLanguageChange, onSubmit }: SearchHeaderProps) {
   const [searchTerm, setSearchTerm] = useState("")
 
   return (
@@ -19,21 +20,19 @@ export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          lang={languageCode}
+          lang={language.code}
           placeholder="Search..."
           disabled={loading}
         />
         <button onClick={() => onSubmit(searchTerm)}>Search</button>
       </div>
-      <div>
-        <select value={languageCode} onChange={(e) => onLanguageChange(e.target.value)}>
-          {Languages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.name}
-            </option>
-          ))}
-        </select>
-      </div>
+
+      <LanguageDropdown language={language} onLanguageChange={onLanguageChange} />
+      {/*<button className={styles.customSelect}>*/}
+      {/*  <select className={styles.languages} value={languageCode} onChange={(e) => onLanguageChange(e.target.value)}>*/}
+
+      {/*  </select>*/}
+      {/*</button>*/}
     </div>
   )
 }
