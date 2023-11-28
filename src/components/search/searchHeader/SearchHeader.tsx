@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { RefreshIcon, SearchIcon } from "../../shared/icons/icons"
+import { UploadInput } from "../../shared/downloadInput/UploadInput"
+import { RefreshIcon, SearchIcon, UploadIcon } from "../../shared/icons/icons"
 import { LanguageDropdown } from "../languageDropdown/LanguageDropdown"
 import styles from "./SearchHeader.module.css"
 
@@ -16,6 +17,7 @@ export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit
   return (
     <div className={styles.container}>
       <div className={styles.searchContainer}>
+        <LanguageDropdown languageCode={languageCode} onLanguageChange={onLanguageChange} />
         <div className={styles.search}>
           <button className={styles.searchButton} onClick={() => onSubmit(searchTerm)}>
             <SearchIcon />
@@ -34,8 +36,10 @@ export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit
           <RefreshIcon />
         </button>
       </div>
-
-      <LanguageDropdown languageCode={languageCode} onLanguageChange={onLanguageChange} />
+      <label className={styles.upload} htmlFor="search-upload">
+        <UploadInput id="search-upload" />
+        Upload an MP3 <UploadIcon />
+      </label>
     </div>
   )
 }

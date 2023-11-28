@@ -2,7 +2,7 @@ import React from "react"
 import { useAppDispatch } from "../../app/hooks"
 import { setCurrentView } from "../../app/viewSlice"
 import { Views } from "../../domain/views"
-import { DownloadInput } from "../shared/downloadInput/DownloadInput"
+import { UploadInput } from "../shared/downloadInput/UploadInput"
 import "./MainFileSelector.module.css"
 import styles from "./MainFileSelector.module.css"
 
@@ -21,8 +21,8 @@ export function MainFileSelector() {
         Search for audio
       </button>
       <label className={styles.upload} htmlFor={downloadId}>
-        <DownloadInput id={downloadId} />
-        <span>Upload an MP3</span>
+        <UploadInput id={downloadId} />
+        Upload an MP3
       </label>
     </div>
   )

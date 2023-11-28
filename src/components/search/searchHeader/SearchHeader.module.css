@@ -7,7 +7,6 @@
 .searchContainer {
   display: flex;
   align-items: center;
-  gap: 30px;
 }
 
 .search {
@@ -17,6 +16,8 @@
   align-items: center;
   padding-bottom: 4px;
   border-bottom: 2px solid var(--color-grey);
+  margin-right: 30px;
+  margin-left: 8px;
 }
 
 .searchButton {
@@ -45,4 +46,21 @@
   composes: roundButton from "../../styles/buttons.module.css";
   width: 40px;
   height: 40px;
+}
+
+.upload {
+  display: flex;
+  gap: 4px;
+  font-size: 18px;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.upload:hover {
+  text-decoration: underline;
+}
+
+.upload svg path {
+  fill: var(--color-icon);
 }
