@@ -1,4 +1,48 @@
 .container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.search {
+  height: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--color-grey);
+}
+
+.searchButton {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.searchButton svg path {
+  fill: var(--color-icon);
+}
+
+.searchInput {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: var(--color-text);
+  width: 200px;
+  padding-left: 8px;
+}
+
+.refreshButton {
+  composes: roundButton from "../../styles/buttons.module.css";
+  width: 40px;
+  height: 40px;
 }

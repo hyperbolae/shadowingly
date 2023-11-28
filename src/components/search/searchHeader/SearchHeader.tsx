@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { RefreshIcon, SearchIcon } from "../../shared/icons/icons"
 import { LanguageDropdown } from "../languageDropdown/LanguageDropdown"
 import styles from "./SearchHeader.module.css"
 
@@ -14,24 +15,27 @@ export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit
 
   return (
     <div className={styles.container}>
-      <div>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          lang={languageCode}
-          placeholder="Search..."
-          disabled={loading}
-        />
-        <button onClick={() => onSubmit(searchTerm)}>Search</button>
+      <div className={styles.searchContainer}>
+        <div className={styles.search}>
+          <button className={styles.searchButton} onClick={() => onSubmit(searchTerm)}>
+            <SearchIcon />
+          </button>
+          <input
+            className={styles.searchInput}
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            lang={languageCode}
+            placeholder="Search"
+            disabled={loading}
+          />
+        </div>
+        <button className={styles.refreshButton} onClick={() => onSubmit(searchTerm)}>
+          <RefreshIcon />
+        </button>
       </div>
 
       <LanguageDropdown languageCode={languageCode} onLanguageChange={onLanguageChange} />
-      {/*<button className={styles.customSelect}>*/}
-      {/*  <select className={styles.languages} value={languageCode} onChange={(e) => onLanguageChange(e.target.value)}>*/}
-
-      {/*  </select>*/}
-      {/*</button>*/}
     </div>
   )
 }

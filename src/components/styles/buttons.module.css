@@ -2,7 +2,6 @@
   box-shadow: var(--shadow);
   transition: var(--color-transition);
   background-color: var(--color-grey-light);
-  color: var(--color-grey);
   border: none;
   border-radius: 2rem;
   display: flex;
