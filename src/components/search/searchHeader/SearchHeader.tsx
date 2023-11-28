@@ -1,16 +1,15 @@
 import { useState } from "react"
-import { Language } from "../../../domain/languages"
 import { LanguageDropdown } from "../languageDropdown/LanguageDropdown"
 import styles from "./SearchHeader.module.css"
 
 export interface SearchHeaderProps {
-  language: Language
+  languageCode: string
   loading: boolean
   onSubmit: (searchTerm: string) => void
-  onLanguageChange: (languageCode: Language) => void
+  onLanguageChange: (code: string) => void
 }
 
-export function SearchHeader({ language, loading, onLanguageChange, onSubmit }: SearchHeaderProps) {
+export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit }: SearchHeaderProps) {
   const [searchTerm, setSearchTerm] = useState("")
 
   return (
@@ -20,14 +19,14 @@ export function SearchHeader({ language, loading, onLanguageChange, onSubmit }: 
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          lang={language.code}
+          lang={languageCode}
           placeholder="Search..."
           disabled={loading}
         />
         <button onClick={() => onSubmit(searchTerm)}>Search</button>
       </div>
 
-      <LanguageDropdown language={language} onLanguageChange={onLanguageChange} />
+      <LanguageDropdown languageCode={languageCode} onLanguageChange={onLanguageChange} />
       {/*<button className={styles.customSelect}>*/}
       {/*  <select className={styles.languages} value={languageCode} onChange={(e) => onLanguageChange(e.target.value)}>*/}
 

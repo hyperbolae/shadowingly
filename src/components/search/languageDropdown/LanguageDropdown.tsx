@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import { Language, Languages } from "../../../domain/languages"
+import { Languages } from "../../../domain/languages"
 import { mergeStyles } from "../../../utils/styling"
 import { LanguageIcon } from "../../shared/icons/icons"
 import styles from "./LanguageDropdown.module.css"
 
 export interface LanguageDropdownProps {
-  language: Language
-  onLanguageChange: (language: Language) => void
+  languageCode: string
+  onLanguageChange: (code: string) => void
 }
 
-export function LanguageDropdown({ language, onLanguageChange }: LanguageDropdownProps) {
+export function LanguageDropdown({ languageCode, onLanguageChange }: LanguageDropdownProps) {
   const [visible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
@@ -50,10 +50,10 @@ export function LanguageDropdown({ language, onLanguageChange }: LanguageDropdow
               type="radio"
               id={lang.code}
               value={lang.code}
-              checked={lang.code === language.code}
+              checked={lang.code === languageCode}
               role="option"
-              aria-selected={lang.code === language.code}
-              onChange={() => onLanguageChange(lang)}
+              aria-selected={lang.code === languageCode}
+              onChange={() => onLanguageChange(lang.code)}
               onClick={() => setVisible(false)}
             />
             <label htmlFor={lang.code}>{lang.displayName}</label>
