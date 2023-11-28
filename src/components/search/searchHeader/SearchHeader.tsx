@@ -32,7 +32,7 @@ export function SearchHeader({ languageCode, loading, onLanguageChange, onSubmit
             disabled={loading}
           />
         </div>
-        <button className={styles.refreshButton} onClick={() => onSubmit(searchTerm)}>
+        <button className={styles.refreshButton} onClick={() => onSubmit(searchTerm)} title="Get new sentences">
           <RefreshIcon />
         </button>
       </div>

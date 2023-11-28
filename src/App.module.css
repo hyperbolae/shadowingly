@@ -7,7 +7,7 @@
 
 .mainPanel {
   width: 1000px;
-  min-height: 600px;
+  min-height: 650px;
   background: var(--color-white);
   border: 1px solid var(--color-grey-light);
   border-radius: 10px;

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { DefaultLanguage, Languages } from "../../../domain/languages"
 import { Sentence } from "../../../domain/sentence"
 import { parseTatoebaSentence, searchUrl, TatoebaResponse } from "../../../domain/tatoeba"
+import { RefreshIcon } from "../../shared/icons/icons"
 import { SearchHeader } from "../searchHeader/SearchHeader"
 import { SearchItem } from "../searchItem/SearchItem"
 import styles from "./SearchPanel.module.css"
@@ -40,7 +41,13 @@ export function SearchPanel() {
         onLanguageChange={setLanguageCode}
       />
       <ul className={styles.sentences}>
-        {loading ? <p>Loading...</p> : results.map((sentence) => <SearchItem key={sentence.id} sentence={sentence} />)}
+        {loading ? (
+          <span className={styles.loadingSpinner}>
+            <RefreshIcon />
+          </span>
+        ) : (
+          results.map((sentence) => <SearchItem key={sentence.id} sentence={sentence} />)
+        )}
       </ul>
     </div>
   )
