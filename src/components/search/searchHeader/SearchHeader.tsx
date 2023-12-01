@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { UploadInput } from "../../shared/downloadInput/UploadInput"
 import { RefreshIcon, SearchIcon, UploadIcon } from "../../shared/icons/icons"
+import { UploadInput } from "../../shared/uploadInput/UploadInput"
 import { LanguageDropdown } from "../languageDropdown/LanguageDropdown"
 import styles from "./SearchHeader.module.css"
 
