@@ -1,0 +1,3 @@
+.button {
+  composes: roundButton from "../../styles/buttons.module.css";
+}

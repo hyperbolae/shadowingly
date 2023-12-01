@@ -1,8 +1,4 @@
-label.main-selector input[type="file"] {
-  display: none;
-}
-
-.main-selector {
+.search {
   padding: 0.7rem 1.4rem;
   font-weight: 600;
   font-size: 1rem;
@@ -11,9 +7,10 @@ label.main-selector input[type="file"] {
   background: var(--color-primary);
   color: var(--color-white);
   display: inline-block;
+  border: none;
 }
 
-.main-selector-container {
+.container {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -21,13 +18,14 @@ label.main-selector input[type="file"] {
   column-gap: 1rem;
 }
 
-.learn-more {
+.upload {
   padding: 0.7rem 1.4rem;
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
+  cursor: pointer;
 }
 
-.learn-more:hover {
+.upload:hover {
   text-decoration: underline;
 }

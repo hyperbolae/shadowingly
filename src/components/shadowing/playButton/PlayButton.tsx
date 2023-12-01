@@ -3,7 +3,7 @@ import { pauseAudio, playAudio, playAudioWithDelay } from "../../../app/audioSli
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { AudioStatus } from "../../../domain/audioStatus"
 import { Icon, PauseIcon, PlayIcon } from "../../shared/icons/icons"
-import "../../styles/Button.css"
+import styles from "./PlayButton.module.css"
 
 function getIcon(status: AudioStatus): Icon {
   switch (status) {
@@ -40,7 +40,7 @@ export function PlayButton() {
   }
 
   return (
-    <button className="round-button" onClick={handleClick}>
+    <button className={styles.button} onClick={handleClick}>
       <Icon />
     </button>
   )

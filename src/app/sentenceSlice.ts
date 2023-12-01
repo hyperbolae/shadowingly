@@ -13,10 +13,13 @@ export const sentenceSlice = createSlice({
   reducers: {
     setSentence: (state, action: PayloadAction<Sentence>) => {
       state.current = action.payload
+    },
+    clearSentence: (state) => {
+      state.current = undefined
     }
   }
 })
 
-export const { setSentence } = sentenceSlice.actions
+export const { setSentence, clearSentence } = sentenceSlice.actions
 
 export const sentenceReducer = sentenceSlice.reducer

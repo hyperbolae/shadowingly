@@ -4,6 +4,7 @@ import { setSentence } from "../../../app/sentenceSlice"
 import { Sentence } from "../../../domain/sentence"
 import { baseAudioUrl } from "../../../domain/tatoeba"
 import { Dialogue } from "../../shared/dialogue/Dialogue"
+import { PlayIcon } from "../../shared/icons/icons"
 import styles from "./SearchItem.module.css"
 
 export interface SearchItemProps {
@@ -30,12 +31,16 @@ export function SearchItem({ sentence }: SearchItemProps) {
 
   return (
     <li className={styles.container}>
+      <button className={styles.playButton} onClick={() => handleAudioPlay(sentence)}>
+        <PlayIcon />
+      </button>
       <div lang={sentence.languageCode} className={styles.sentence}>
         <Dialogue sentence={sentence} showTranscription={true} />
       </div>
       <div className={styles.buttons}>
-        <button onClick={() => handleAudioPlay(sentence)}>Play</button>
-        <button onClick={() => handleAudioSelected(sentence)}>Select</button>
+        <button className={styles.button} onClick={() => handleAudioSelected(sentence)}>
+          Select
+        </button>
       </div>
     </li>
   )

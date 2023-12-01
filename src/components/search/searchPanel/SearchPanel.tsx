@@ -2,45 +2,21 @@ import React, { useCallback, useEffect, useState } from "react"
 import { DefaultLanguage, Languages } from "../../../domain/languages"
 import { Sentence } from "../../../domain/sentence"
 import { parseTatoebaSentence, searchUrl, TatoebaResponse } from "../../../domain/tatoeba"
+import { RefreshIcon } from "../../shared/icons/icons"
+import { SearchHeader } from "../searchHeader/SearchHeader"
 import { SearchItem } from "../searchItem/SearchItem"
 import styles from "./SearchPanel.module.css"
+import { getSearchUrl } from "./utils"
 
-const defaultMinCount = 10
-
-function getSearchUrl(languageCode: string, searchTerm?: string, minCount?: number, maxCount?: number) {
-  const url = new URL(searchUrl)
-  const params = url.searchParams
-
-  params.append("from", languageCode)
-
-  const minCountParam = minCount && minCount > 0 && minCount < 40 ? minCount : defaultMinCount
-  params.append("word_count_min", minCountParam.toString())
-
-  if (maxCount && maxCount > 0 && maxCount < 100) {
-    params.append("word_count_max", maxCount.toString())
-  }
-
-  if (searchTerm && searchTerm.trim()) {
-    params.append("query", searchTerm)
-  }
-
-  return url.toString()
-}
-
-export interface SearchPanelProps {
-  defaultLanguageCode?: string
-}
-
-export function SearchPanel(props: SearchPanelProps) {
-  const [searchTerm, setSearchTerm] = useState("")
+export function SearchPanel() {
   const [results, setResults] = useState<Sentence[]>([])
-  const [loading, setLoading] = useState(false)
-  const [languageCode, setLanguageCode] = useState(props.defaultLanguageCode || DefaultLanguage.code)
+  const [loading, setLoading] = useState(true)
+  const [languageCode, setLanguageCode] = useState(DefaultLanguage.code)
 
   const fetchTatoebaData = useCallback(async () => {
     setLoading(true)
     const tatoebaCode = Languages.find((lang) => lang.code === languageCode)?.tatoebaCode || DefaultLanguage.tatoebaCode
-    const response = await fetch(searchUrl + getSearchUrl(tatoebaCode, searchTerm))
+    const response = await fetch(searchUrl + getSearchUrl(tatoebaCode))
     const data: TatoebaResponse = await response.json()
 
     const sentences = data.results
@@ -50,37 +26,29 @@ export function SearchPanel(props: SearchPanelProps) {
 
     setResults(sentences)
     setLoading(false)
-  }, [searchTerm, languageCode])
+  }, [languageCode])
+
   useEffect(() => {
     fetchTatoebaData()
   }, [fetchTatoebaData])
 
   return (
     <div className={styles.container}>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        lang={languageCode}
-        placeholder="Search..."
+      <SearchHeader
+        languageCode={languageCode}
+        loading={loading}
+        onSubmit={fetchTatoebaData}
+        onLanguageChange={setLanguageCode}
       />
-      <button onClick={fetchTatoebaData}>Search</button>
-      <select value={languageCode} onChange={(e) => setLanguageCode(e.target.value)}>
-        {Languages.map((lang) => (
-          <option key={lang.code} value={lang.code}>
-            {lang.name}
-          </option>
-        ))}
-      </select>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className={styles.sentences}>
-          {results.map((sentence, index) => (
-            <SearchItem sentence={sentence} key={index} />
-          ))}
-        </ul>
-      )}
+      <ul className={styles.sentences}>
+        {loading ? (
+          <span className={styles.loadingSpinner}>
+            <RefreshIcon />
+          </span>
+        ) : (
+          results.map((sentence) => <SearchItem key={sentence.id} sentence={sentence} />)
+        )}
+      </ul>
     </div>
   )
 }

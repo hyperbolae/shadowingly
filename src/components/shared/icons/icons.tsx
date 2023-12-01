@@ -5,6 +5,7 @@ import React from "react"
 
 interface IconProps {
   fill?: string
+  size?: string
 }
 
 export type Icon = (props: IconProps) => JSX.Element
@@ -29,15 +30,6 @@ export const PauseIcon: Icon = ({ fill = defaultColor }: IconProps) => (
   </svg>
 )
 
-export const StopIcon: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M4.75 3A1.75 1.75 0 0 0 3 4.75v14.5c0 .966.784 1.75 1.75 1.75h14.5A1.75 1.75 0 0 0 21 19.25V4.75A1.75 1.75 0 0 0 19.25 3H4.75Z"
-      fill={fill}
-    />
-  </svg>
-)
-
 export const RecordIcon: Icon = ({ fill = defaultColor }: IconProps) => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -56,10 +48,28 @@ export const RecordStopIcon: Icon = ({ fill = defaultColor }: IconProps) => (
   </svg>
 )
 
-export const ResetIcon: Icon = ({ fill = defaultColor }: IconProps) => (
+export const LanguageIcon: Icon = ({ fill = defaultColor }: IconProps) => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path
-      d="M7.207 2.543a1 1 0 0 1 0 1.414L5.414 5.75h7.836a8 8 0 1 1-8 8 1 1 0 1 1 2 0 6 6 0 1 0 6-6H5.414l1.793 1.793a1 1 0 0 1-1.414 1.414l-3.5-3.5a1 1 0 0 1 0-1.414l3.5-3.5a1 1 0 0 1 1.414 0Z"
+      d="M18 2a1 1 0 1 0-2 0v1h-4a1 1 0 0 0-1 1v1.25a1 1 0 1 0 2 0V5h8v.25a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-4V2ZM8.563 7.505l.056.117 5.307 13.005a1 1 0 0 1-1.801.86l-.05-.105L10.692 18H4.407l-1.49 3.407a1 1 0 0 1-1.208.555l-.11-.04a1 1 0 0 1-.555-1.208l.04-.11L6.777 7.6c.337-.77 1.395-.795 1.786-.094Zm-.902 3.062L5.282 16h4.595l-2.216-5.432ZM13.499 7a1 1 0 0 1 1-1h5a1 1 0 0 1 .708 1.707L18.414 9.5H22a1 1 0 1 1 0 2h-4v2.984a2.5 2.5 0 0 1-3.219 2.394l-.569-.17a1 1 0 1 1 .575-1.916l.569.17a.5.5 0 0 0 .643-.478V11.5H12a1 1 0 1 1 0-2h4a1 1 0 0 1 .292-.707L17.085 8H14.5a1 1 0 0 1-1-1Z"
+      fill={fill}
+    />
+  </svg>
+)
+
+export const SearchIcon: Icon = ({ fill = defaultColor }: IconProps) => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M10 2.5a7.5 7.5 0 0 1 5.964 12.048l4.743 4.745a1 1 0 0 1-1.32 1.497l-.094-.083-4.745-4.743A7.5 7.5 0 1 1 10 2.5Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"
+      fill={fill}
+    />
+  </svg>
+)
+
+export const RefreshIcon: Icon = ({ fill = defaultColor }: IconProps) => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 4.75a7.25 7.25 0 1 0 7.201 6.406c-.068-.588.358-1.156.95-1.156.515 0 .968.358 1.03.87a9.25 9.25 0 1 1-3.432-6.116V4.25a1 1 0 1 1 2.001 0v2.698l.034.052h-.034v.25a1 1 0 0 1-1 1h-3a1 1 0 1 1 0-2h.666A7.219 7.219 0 0 0 12 4.75Z"
       fill={fill}
     />
   </svg>
@@ -69,53 +79,6 @@ export const UploadIcon: Icon = ({ fill = defaultColor }: IconProps) => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M5.25 3.495h13.498a.75.75 0 0 0 .101-1.493l-.101-.007H5.25a.75.75 0 0 0-.102 1.493l.102.007Zm6.633 18.498L12 22a1 1 0 0 0 .993-.884L13 21V8.41l3.294 3.292a1 1 0 0 0 1.32.083l.094-.083a1 1 0 0 0 .083-1.32l-.083-.094-4.997-4.997a1 1 0 0 0-1.32-.083l-.094.083-5.004 4.996a1 1 0 0 0 1.32 1.499l.094-.083L11 8.415V21a1 1 0 0 0 .883.993Z"
-      fill={fill}
-    />
-  </svg>
-)
-
-export const Comment: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M5.25 18A3.25 3.25 0 0 1 2 14.75v-8.5A3.25 3.25 0 0 1 5.25 3h13.5A3.25 3.25 0 0 1 22 6.25v8.5A3.25 3.25 0 0 1 18.75 18h-5.785l-5.387 3.817A1 1 0 0 1 6 21.002V18h-.75Z"
-      fill={fill}
-    />
-  </svg>
-)
-
-export const CommentLeft: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M12.023 2.999A6.5 6.5 0 0 0 22 11.189L22 14.75A3.25 3.25 0 0 1 18.75 18h-5.785l-5.387 3.817A1 1 0 0 1 6 21.002V18h-.75A3.25 3.25 0 0 1 2 14.75v-8.5A3.25 3.25 0 0 1 5.25 3l6.773-.001ZM17.5 1a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Zm-1.284 2.589-.07.057-2.528 2.532-.03.037-.041.074-.03.083-.015.082-.002.067.008.068.015.062.024.06.03.056.04.055 2.53 2.532a.5.5 0 0 0 .764-.638l-.057-.07L15.208 7H20.5a.5.5 0 0 0 .492-.41L21 6.5a.5.5 0 0 0-.41-.492L20.5 6h-5.292l1.646-1.646a.5.5 0 0 0 .057-.638l-.057-.07a.5.5 0 0 0-.638-.057Z"
-      fill={fill}
-    />
-  </svg>
-)
-export const CommentRight: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M12.023 2.999A6.5 6.5 0 0 0 22 11.189L22 14.75A3.25 3.25 0 0 1 18.75 18h-5.785l-5.387 3.817A1 1 0 0 1 6 21.002V18h-.75A3.25 3.25 0 0 1 2 14.75v-8.5A3.25 3.25 0 0 1 5.25 3l6.773-.001ZM17.5 1a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Zm.216 2.589-.07.057-.057.07a.5.5 0 0 0 0 .568l.057.07L19.292 6H14l-.09.008a.5.5 0 0 0-.402.402l-.008.09.008.09a.5.5 0 0 0 .402.402L14 7h5.292l-1.646 1.646-.057.07a.5.5 0 0 0 .695.695l.07-.057 2.541-2.548.033-.048.034-.067.021-.063.015-.082L21 6.5l-.003-.053-.014-.075-.03-.083-.042-.074-.045-.056-2.512-2.513-.07-.057a.5.5 0 0 0-.568 0Z"
-      fill={fill}
-    />
-  </svg>
-)
-export const CommentMultiple: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M8.25 2a3.25 3.25 0 0 0-3.241 3.007c.08-.005.16-.007.241-.007h9.5A4.25 4.25 0 0 1 19 9.25v6.5c0 .08-.002.161-.007.241A3.25 3.25 0 0 0 22 12.75v-6A4.75 4.75 0 0 0 17.25 2h-9Z"
-      fill={fill}
-    />
-    <path
-      d="M17.99 16a3.25 3.25 0 0 1-3.24 3h-4.083L7 21.75c-.824.618-2 .03-2-1v-1.76a3.25 3.25 0 0 1-3-3.24v-6.5A3.25 3.25 0 0 1 5.25 6h9.5A3.25 3.25 0 0 1 18 9.25v6.5c0 .084-.003.168-.01.25Z"
-      fill={fill}
-    />
-  </svg>
-)
-
-export const CommentOff: Icon = ({ fill = defaultColor }: IconProps) => (
-  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M3.28 2.22a.75.75 0 1 0-1.06 1.06l.702.702A3.24 3.24 0 0 0 2 6.25v8.5A3.25 3.25 0 0 0 5.25 18H6v3.002a1 1 0 0 0 1.578.815L12.965 18h3.974l3.78 3.78a.75.75 0 0 0 1.061-1.06L3.28 2.22ZM22 14.75a3.246 3.246 0 0 1-1.398 2.67L6.182 3H18.75A3.25 3.25 0 0 1 22 6.25v8.5Z"
       fill={fill}
     />
   </svg>

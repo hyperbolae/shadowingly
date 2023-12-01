@@ -1,7 +1,31 @@
 .container {
-  padding: 30px;
+  padding: 25px 50px;
+
+  display: grid;
+  grid-template-rows: 50px auto;
+  min-height: inherit;
 }
 
 .sentences {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+}
+
+.loadingSpinner svg {
+  width: 50px;
+  height: 50px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -10,7 +10,7 @@
 
 .line {
   height: var(--bar-size);
-  background-color: var(--color-light-grey);
+  background-color: var(--color-grey-light);
   border-radius: var(--radius);
 }
 
