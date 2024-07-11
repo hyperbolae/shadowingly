@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Languages } from "../../../domain/languages"
 import { mergeStyles } from "../../../utils/styling"
 import { LanguageIcon } from "../../shared/icons/icons"
-import styles from "./LanguageDropdown.module.css"
+import * as styles from "./LanguageDropdown.module.css"
 
 export interface LanguageDropdownProps {
   languageCode: string

@@ -4,7 +4,7 @@ import { setCurrentView } from "../../app/viewSlice"
 import { Views } from "../../domain/views"
 import { UploadInput } from "../shared/uploadInput/UploadInput"
 import "./MainFileSelector.module.css"
-import styles from "./MainFileSelector.module.css"
+import * as styles from "./MainFileSelector.module.css"
 
 const uploadId = "select-file"
 

@@ -5,7 +5,7 @@ import { parseTatoebaSentence, searchUrl, TatoebaResponse } from "../../../domai
 import { RefreshIcon } from "../../shared/icons/icons"
 import { SearchHeader } from "../searchHeader/SearchHeader"
 import { SearchItem } from "../searchItem/SearchItem"
-import styles from "./SearchPanel.module.css"
+import * as styles from "./SearchPanel.module.css"
 import { getSearchUrl } from "./utils"
 
 export function SearchPanel() {

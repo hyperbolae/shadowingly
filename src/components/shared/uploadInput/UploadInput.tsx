@@ -2,7 +2,7 @@ import { ChangeEvent } from "react"
 import { useAppDispatch } from "../../../app/hooks"
 import { setPlaybackFile } from "../../../app/playbackFileSlice"
 import { clearSentence } from "../../../app/sentenceSlice"
-import styles from "./UploadInput.module.css"
+import * as styles from "./UploadInput.module.css"
 
 export interface UploadInputProps {
   id: string

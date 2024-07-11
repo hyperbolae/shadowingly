@@ -3,6 +3,7 @@ import { searchUrl } from "../../../domain/tatoeba"
 const defaultMinCount = 10
 
 export function getSearchUrl(languageCode: string, searchTerm?: string, minCount?: number, maxCount?: number) {
+  console.log(searchUrl)
   const url = new URL(searchUrl)
   const params = url.searchParams
 

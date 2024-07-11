@@ -1,6 +1,6 @@
 import { Sentence, Transcription } from "./sentence"
 
-export const baseUrl = process.env.REACT_APP_TATOEBA_BASE_URL
+export const baseUrl = process.env.TATOEBA_BASE_URL
 export const searchUrl =
   baseUrl +
   "/api_v0/search?has_audio=yes&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no&limit=1"

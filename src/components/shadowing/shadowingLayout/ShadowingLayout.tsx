@@ -7,7 +7,7 @@ import { PlayButton } from "../playButton/PlayButton"
 import { ProgressBarContainer } from "../progressBar/ProgressBarContainer"
 import { RecordButton } from "../recordButton/RecordButton"
 import { Waveform } from "../waveform/Waveform"
-import styles from "./ShadowingLayout.module.css"
+import * as styles from "./ShadowingLayout.module.css"
 
 export function ShadowingLayout() {
   const dispatch = useAppDispatch()

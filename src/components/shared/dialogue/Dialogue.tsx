@@ -1,7 +1,7 @@
 import * as DOMPurify from "dompurify"
 import { Chinese, Japanese } from "../../../domain/languages"
 import { Sentence } from "../../../domain/sentence"
-import styles from "./Dialogue.module.css"
+import * as styles from "./Dialogue.module.css"
 
 interface DialogueProps {
   sentence: Sentence

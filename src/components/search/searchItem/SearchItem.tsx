@@ -5,7 +5,7 @@ import { Sentence } from "../../../domain/sentence"
 import { baseAudioUrl } from "../../../domain/tatoeba"
 import { Dialogue } from "../../shared/dialogue/Dialogue"
 import { PlayIcon } from "../../shared/icons/icons"
-import styles from "./SearchItem.module.css"
+import * as styles from "./SearchItem.module.css"
 
 export interface SearchItemProps {
   sentence: Sentence

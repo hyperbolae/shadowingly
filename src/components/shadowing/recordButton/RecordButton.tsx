@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { startRecording, stopRecording } from "../../../app/audioSlice"
 import { useAppSelector } from "../../../app/hooks"
 import { RecordIcon, RecordStopIcon } from "../../shared/icons/icons"
-import styles from "./RecordButton.module.css"
+import * as styles from "./RecordButton.module.css"
 
 export function RecordButton() {
   const isRecording = useAppSelector((state) => state.audio.isRecording)
