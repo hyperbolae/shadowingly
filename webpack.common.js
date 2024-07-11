@@ -9,8 +9,9 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new webpack.ProvidePlugin({
-      "React": "react"
-    })],
+      React: "react"
+    })
+  ],
   module: {
     rules: [
       {
