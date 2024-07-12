@@ -1,0 +1,11 @@
+.closeButton {
+  composes: squareButton from "../../styles/buttons.module.css";
+  width: 190px;
+  display: block;
+  margin-top: 20px;
+}
+
+dialog {
+  border-radius: 20px;
+  border-color: transparent;
+}

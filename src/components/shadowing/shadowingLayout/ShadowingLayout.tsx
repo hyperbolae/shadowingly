@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { setCurrentView } from "../../../app/viewSlice"
+import { setCurrentView, setShowSettings } from "../../../app/viewSlice"
 import { Views } from "../../../domain/views"
 import { Dialogue } from "../../shared/dialogue/Dialogue"
 import { ListeningTypeSelector } from "../channelSelector/ListeningTypeSelector"
@@ -7,6 +7,7 @@ import { PlayButton } from "../playButton/PlayButton"
 import { ProgressBarContainer } from "../progressBar/ProgressBarContainer"
 import { RecordButton } from "../recordButton/RecordButton"
 import { Waveform } from "../waveform/Waveform"
+import { Settings } from "../../shared/settings/Settings"
 import * as styles from "./ShadowingLayout.module.css"
 
 export function ShadowingLayout() {
@@ -29,6 +30,10 @@ export function ShadowingLayout() {
         <button className={styles.newAudio} onClick={() => dispatch(setCurrentView(Views.Search))}>
           Choose new audio
         </button>
+        <button className={styles.newAudio} onClick={() => dispatch(setShowSettings(true))}>
+          Settings
+        </button>
+        <Settings />
       </div>
     </div>
   )
