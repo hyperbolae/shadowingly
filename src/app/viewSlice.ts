@@ -3,12 +3,10 @@ import { Views } from "../domain/views"
 
 export interface ViewSlice {
   current: Views
-  showSettings: bool
 }
 
 const initialState: ViewSlice = {
-  current: Views.MainFileSelector,
-  showSettings: false
+  current: Views.MainFileSelector
 }
 
 export const viewSlice = createSlice({
