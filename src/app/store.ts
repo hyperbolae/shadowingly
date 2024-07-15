@@ -4,13 +4,15 @@ import { audioReducer } from "./audioSlice"
 import { _setPlaybackFile, playbackFileReducer } from "./playbackFileSlice"
 import { sentenceReducer } from "./sentenceSlice"
 import { viewReducer } from "./viewSlice"
+import { settingsReducer } from "./settingsSlice"
 
 export const store = configureStore({
   reducer: {
     audio: audioReducer,
     playbackFile: playbackFileReducer,
     panel: viewReducer,
-    sentence: sentenceReducer
+    sentence: sentenceReducer,
+    settings: settingsReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

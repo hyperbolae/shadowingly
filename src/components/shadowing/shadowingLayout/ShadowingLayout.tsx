@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { setCurrentView, setShowSettings } from "../../../app/viewSlice"
+import { setCurrentView } from "../../../app/viewSlice"
+import { setShowSettings } from "../../../app/settingsSlice"
 import { Views } from "../../../domain/views"
 import { Dialogue } from "../../shared/dialogue/Dialogue"
 import { ListeningTypeSelector } from "../channelSelector/ListeningTypeSelector"

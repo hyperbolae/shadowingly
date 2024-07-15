@@ -8,4 +8,9 @@
 dialog {
   border-radius: 20px;
   border-color: transparent;
+  width: 800px;
+}
+
+label {
+  padding-right: 10px;
 }

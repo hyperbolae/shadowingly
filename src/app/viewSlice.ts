@@ -3,12 +3,12 @@ import { Views } from "../domain/views"
 
 export interface ViewSlice {
   current: Views
-  show_settings: bool
+  showSettings: bool
 }
 
 const initialState: ViewSlice = {
   current: Views.MainFileSelector,
-  show_settings: false
+  showSettings: false
 }
 
 export const viewSlice = createSlice({
@@ -17,13 +17,10 @@ export const viewSlice = createSlice({
   reducers: {
     setCurrentView: (state, action: PayloadAction<Views>) => {
       state.current = action.payload
-    },
-    setShowSettings: (state, action: PayloadAction<bool>) => {
-      state.show_settings = action.payload
     }
   }
 })
 
-export const { setCurrentView, setShowSettings } = viewSlice.actions
+export const { setCurrentView } = viewSlice.actions
 
 export const viewReducer = viewSlice.reducer
