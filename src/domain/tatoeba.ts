@@ -47,14 +47,14 @@ export interface TatoebaSentence {
   transcriptions: TatoebaTranscription[]
   audios: TatoebaAudioSrc[]
   user: TatoebaUser
-  lang_name: string
+  langName: string
   dir: string
-  lang_tag: string
-  is_favorite: null
-  is_owned_by_current_user: boolean
+  langTag: string
+  isFavorite: null
+  isOwnedByCurrentUser: boolean
   permissions: null
-  max_visible_translations: number
-  current_user_review: null
+  maxVisibleTranslations: number
+  currentUserReview: null
 }
 
 export interface TatoebaUser {
@@ -64,23 +64,23 @@ export interface TatoebaUser {
 export interface TatoebaAudioSrc {
   id: number
   author: string
-  attribution_url?: string
+  attributionUrl?: string
   license: null
 }
 
 export interface TatoebaTranscription {
   id: number
-  sentence_id: number
+  sentenceId: number
   script: string
   text: string
-  user_id: null
+  userId: null
   needsReview: boolean
   modified: string
   readonly: boolean
   type: string
   html?: string
   markup: null
-  info_message: string
+  infoMessage: string
 }
 
 export interface TatoebaTranslation {
@@ -92,10 +92,10 @@ export interface TatoebaTranslation {
   transcriptions: any[]
   audios: TatoebaAudioSrc[]
   isDirect: boolean
-  lang_name: string
+  langName: string
   dir: string
 
-  lang_tag: string
+  langTag: string
 }
 
 function getTranscription(transcriptions: TatoebaTranscription[]): Transcription | undefined {
@@ -122,11 +122,11 @@ export function parseTatoebaSentence(sentence: TatoebaSentence): Sentence {
     text: sentence.text,
     translation: translation,
     transcription: transcription,
-    languageCode: sentence.lang_tag.slice(0, 2),
+    languageCode: sentence.langTag.slice(0, 2),
     audio: {
       id: sentence.audios[0].id,
       author: sentence.audios[0].author,
-      attribution_url: sentence.audios[0].attribution_url
+      attributionUrl: sentence.audios[0].attributionUrl
     }
   }
 }

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 import { useAppSelector } from "../../../app/hooks"
 import { useAudioService } from "../../../audioService/hooks"
 
-function normalize_array(input: number[]) {
+function normalizeArray(input: number[]) {
   const ratio = Math.max.apply(Math, input) / 100
   const normalized: Array<number> = []
   for (let i = 0; i < input.length; i++) {
@@ -12,14 +12,14 @@ function normalize_array(input: number[]) {
   return normalized
 }
 
-function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
-  const window_size = Math.floor(input!.length / num_chunks)
+function chunkPulseCodeModulation(input: Float32Array, numChunks: number) {
+  const windowSize = Math.floor(input!.length / numChunks)
   let volume = []
 
-  for (let i = 0; i < num_chunks; i++) {
+  for (let i = 0; i < numChunks; i++) {
     let sum = 0
-    sum = input.subarray(i * window_size, (i + 1) * window_size).reduce((acc: number, value: number) => acc + value, 0)
-    sum /= window_size
+    sum = input.subarray(i * windowSize, (i + 1) * windowSize).reduce((acc: number, value: number) => acc + value, 0)
+    sum /= windowSize
     volume.push(sum)
   }
   return volume
@@ -28,29 +28,29 @@ function chunk_pulse_code_modulation(input: Float32Array, num_chunks: number) {
 export function Waveform() {
   const audioService = useAudioService()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const channel_data = audioService.getPlaybackChannelData()
+  const channelData = audioService.getPlaybackChannelData()
   useAppSelector((state) => state.playbackFile.loaded)
 
   useEffect(() => {
     let canvas = canvasRef.current
-    if (!canvas || !channel_data) {
+    if (!canvas || !channelData) {
       return
     }
     canvas.style.width = "100%"
-    let waveform_line_count = 50
+    let waveformLineCount = 50
     canvas.width = canvas.offsetWidth
     const context: any = canvas.getContext("2d")!
-    const piece_size = canvas.width / waveform_line_count
+    const pieceSize = canvas.width / waveformLineCount
     context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
-    if (channel_data) {
-      let volume = chunk_pulse_code_modulation(channel_data, waveform_line_count)
-      volume = normalize_array(volume)
+    if (channelData) {
+      let volume = chunkPulseCodeModulation(channelData, waveformLineCount)
+      volume = normalizeArray(volume)
 
-      for (let i = 0; i < waveform_line_count; i++) {
-        context.roundRect(i * piece_size, canvas.height / 2 - 0.25 * volume[i], piece_size * 0.9, 0.5 * volume[i], 10)
+      for (let i = 0; i < waveformLineCount; i++) {
+        context.roundRect(i * pieceSize, canvas.height / 2 - 0.25 * volume[i], pieceSize * 0.9, 0.5 * volume[i], 10)
       }
       context.fill()
     }
-  }, [channel_data])
+  }, [channelData])
   return <canvas ref={canvasRef} width="100%" height="150px"></canvas>
 }
