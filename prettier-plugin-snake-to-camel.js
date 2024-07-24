@@ -35,6 +35,10 @@ function applyChanges(text, changes) {
   return result
 }
 
+function external_interface(filename) {
+  return filename.endsWith("tatoeba.ts")
+}
+
 module.exports = {
   parsers: {
     typescript: {
@@ -48,8 +52,14 @@ module.exports = {
           true,
           isTSX ? ts.ScriptKind.TSX : ts.ScriptKind.TS
         )
-
-        const changes = transformIdentifiers(sourceFile)
+        let changes = []
+        /* Certain files define TypeScript interfaces which should not be
+	     altered. We could get around this by extracting these definitions
+	     into a separate package.
+	   */
+        if (!external_interface(options.filepath)) {
+          changes = transformIdentifiers(sourceFile)
+        }
         return applyChanges(text, changes)
       }
     }
