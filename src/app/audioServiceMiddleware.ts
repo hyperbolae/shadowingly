@@ -8,7 +8,7 @@ import type { AppDispatch, RootState } from "./store"
 
 export const audioServiceMiddleware = createListenerMiddleware()
 
-export type AppStartListening = TypedStartListening<RootState, AppDispatch>
+export type AppStartListening = TypedStartListening
 
 export const startAppListening = audioServiceMiddleware.startListening as AppStartListening
 

@@ -11,7 +11,7 @@ export const sentenceSlice = createSlice({
   name: "sentence",
   initialState: initialState,
   reducers: {
-    setSentence: (state, action: PayloadAction<Sentence>) => {
+    setSentence: (state, action: PayloadAction) => {
       state.current = action.payload
     },
     clearSentence: (state) => {

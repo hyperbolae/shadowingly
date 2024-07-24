@@ -11,7 +11,7 @@ export interface UploadInputProps {
 export function UploadInput(props: UploadInputProps) {
   const dispatch = useAppDispatch()
 
-  async function handleUploadChange(event: ChangeEvent<HTMLInputElement>) {
+  async function handleUploadChange(event: ChangeEvent) {
     if (event.target.files) {
       dispatch(setPlaybackFile(event.target.files[0]))
       dispatch(clearSentence())

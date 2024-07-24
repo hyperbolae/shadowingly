@@ -4,13 +4,15 @@ import { audioReducer } from "./audioSlice"
 import { _setPlaybackFile, playbackFileReducer } from "./playbackFileSlice"
 import { sentenceReducer } from "./sentenceSlice"
 import { viewReducer } from "./viewSlice"
+import { settingsReducer } from "./settingsSlice"
 
 export const store = configureStore({
   reducer: {
     audio: audioReducer,
     playbackFile: playbackFileReducer,
     panel: viewReducer,
-    sentence: sentenceReducer
+    sentence: sentenceReducer,
+    settings: settingsReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -20,7 +22,7 @@ export const store = configureStore({
     }).prepend(audioServiceMiddleware.middleware)
 })
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType
 export type AppDispatch = typeof store.dispatch
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>
+export type AppThunk<ReturnType = void> = ThunkAction

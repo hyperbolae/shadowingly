@@ -18,7 +18,7 @@ export const playbackFileSlice = createSlice({
   name: "playbackFile",
   initialState: initialState,
   reducers: {
-    _setPlaybackFile: (state, _: PayloadAction<File>) => {
+    _setPlaybackFile: (state, _: PayloadAction) => {
       state.set = true
       state.loaded = false
     },

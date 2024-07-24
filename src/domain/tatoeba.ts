@@ -126,7 +126,7 @@ export function parseTatoebaSentence(sentence: TatoebaSentence): Sentence {
     audio: {
       id: sentence.audios[0].id,
       author: sentence.audios[0].author,
-      attribution_url: sentence.audios[0].attribution_url
+      attributionUrl: sentence.audios[0].attribution_url
     }
   }
 }

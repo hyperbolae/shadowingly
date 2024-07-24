@@ -45,7 +45,7 @@ export const audioSlice = createSlice({
     clearRecorded: (state) => {
       state.recordedSet = false
     },
-    setDelay: (state, action: PayloadAction<number>) => {
+    setDelay: (state, action: PayloadAction) => {
       if (action.payload > 0 && action.payload < 5) {
         state.delaySeconds = action.payload
       }

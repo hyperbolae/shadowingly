@@ -13,7 +13,7 @@ export const viewSlice = createSlice({
   name: "view",
   initialState: initialState,
   reducers: {
-    setCurrentView: (state, action: PayloadAction<Views>) => {
+    setCurrentView: (state, action: PayloadAction) => {
       state.current = action.payload
     }
   }

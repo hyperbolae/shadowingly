@@ -20,5 +20,5 @@ export interface Translation {
 export interface Audio {
   id: number
   author: string
-  attribution_url?: string
+  attributionUrl?: string
 }
