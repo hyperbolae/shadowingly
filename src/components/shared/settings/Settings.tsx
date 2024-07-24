@@ -35,7 +35,6 @@ export function Settings() {
         onChange={(event) => dispatch(setInterfaceLanguage(event.target.value))}
       >
         <option value="en">English</option>
-        <option value="ja">日本語</option>
         <option value="zh">简单中文</option>
       </select>
       <button className={styles.closeButton} onClick={() => dispatch(setShowSettings(false))}>
