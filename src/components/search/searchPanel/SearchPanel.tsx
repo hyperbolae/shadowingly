@@ -7,15 +7,18 @@ import { SearchHeader } from "../searchHeader/SearchHeader"
 import { SearchItem } from "../searchItem/SearchItem"
 import * as styles from "./SearchPanel.module.css"
 import { getSearchUrl } from "./utils"
+import { setTatoebaLanguage } from "../../../app/settingsSlice"
+import { useAppSelector, useAppDispatch } from "../../../app/hooks"
 
 export function SearchPanel() {
   const [results, setResults] = useState<Sentence[]>([])
   const [loading, setLoading] = useState(true)
-  const [languageCode, setLanguageCode] = useState(DefaultLanguage.code)
-
+  const tatoebaLanguage = useAppSelector((state) => state.settings.tatoebaLanguage)
+  const dispatch = useAppDispatch()
   const fetchTatoebaData = useCallback(async () => {
     setLoading(true)
-    const tatoebaCode = Languages.find((lang) => lang.code === languageCode)?.tatoebaCode || DefaultLanguage.tatoebaCode
+    const tatoebaCode =
+      Languages.find((lang) => lang.code === tatoebaLanguage)?.tatoebaCode || DefaultLanguage.tatoebaCode
     const response = await fetch(searchUrl + getSearchUrl(tatoebaCode))
     const data: TatoebaResponse = await response.json()
 
@@ -26,7 +29,7 @@ export function SearchPanel() {
 
     setResults(sentences)
     setLoading(false)
-  }, [languageCode])
+  }, [tatoebaLanguage])
 
   useEffect(() => {
     fetchTatoebaData()
@@ -35,10 +38,10 @@ export function SearchPanel() {
   return (
     <div className={styles.container}>
       <SearchHeader
-        languageCode={languageCode}
+        languageCode={tatoebaLanguage}
         loading={loading}
         onSubmit={fetchTatoebaData}
-        onLanguageChange={setLanguageCode}
+        onLanguageChange={(event) => dispatch(setTatoebaLanguage(event.target.value))}
       />
       <ul className={styles.sentences}>
         {loading ? (

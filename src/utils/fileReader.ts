@@ -1,4 +1,4 @@
-export function ReadFile(inputFile: File): Promise<ArrayBuffer | undefined> {
+export function ReadFile(inputFile: File): Promise {
   const reader = new FileReader()
 
   return new Promise((resolve, reject) => {

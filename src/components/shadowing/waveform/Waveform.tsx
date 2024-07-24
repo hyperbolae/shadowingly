@@ -5,7 +5,7 @@ import { useAudioService } from "../../../audioService/hooks"
 
 function normalizeArray(input: number[]) {
   const ratio = Math.max.apply(Math, input) / 100
-  const normalized: Array<number> = []
+  const normalized: Array = []
   for (let i = 0; i < input.length; i++) {
     normalized.push(Math.round(input[i] / ratio))
   }

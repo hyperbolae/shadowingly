@@ -22,7 +22,7 @@ export const store = configureStore({
     }).prepend(audioServiceMiddleware.middleware)
 })
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType
 export type AppDispatch = typeof store.dispatch
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>
+export type AppThunk<ReturnType = void> = ThunkAction

@@ -53,7 +53,7 @@ export function LanguageDropdown({ languageCode, onLanguageChange }: LanguageDro
               checked={lang.code === languageCode}
               role="option"
               aria-selected={lang.code === languageCode}
-              onChange={() => onLanguageChange(lang.code)}
+              onChange={(event) => onLanguageChange(event)}
               onClick={() => setVisible(false)}
             />
             <label htmlFor={lang.code}>{lang.displayName}</label>
